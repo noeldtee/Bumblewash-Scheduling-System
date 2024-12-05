@@ -91,7 +91,7 @@
 
         // Redirect to dashboard after modal is closed
         document.getElementById('modalOkButton').addEventListener('click', function () {
-            window.location.href = "<?= ROOT ?>/dashboard";
+            window.location.href = "<?= ROOT ?>/student/dashboard";
         });
     });
   <?php endif; ?>

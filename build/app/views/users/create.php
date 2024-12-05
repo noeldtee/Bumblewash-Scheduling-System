@@ -11,7 +11,7 @@
 <body>
 
 <div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-sm p-4" style="width: 100%; max-width: 500px; background-color: white; border-radius: 10px;">
+    <div class="card shadow-sm p-3" style="margin-top: 10rem; width: 100%; max-width: 500px; background-color: white; border-radius: 10px; overflow-y: auto;">
         <div class="text-center mb-4">
             <img src="<?= ROOT ?>/assets/images/logo.png" alt="Logo" width="80" height="76">
             <h5 class="mt-3" style="color: #2e7d32;">Smart Document Request System</h5>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Parkinsans:wght@300..800&family=Poppins:wght@700&family=Roboto:wght@700&display=swap');
 
 :root {
     --main-color: #22BAA0;
@@ -12,7 +13,7 @@
     text-decoration: none;
     list-style-type: none;
     box-sizing: border-box;
-    font-family: 'Merriweather', sans-serif;
+    font-family: 'Parkinsans', sans-serif;
 }
 
 #menu-toggle {
@@ -27,9 +28,8 @@
     bottom: 0;
     top: 0;
     z-index: 100;
-    background: #f8f9f6;
+    background: #f6f6f6;
     transition: left 300ms;
-    position: fixed;
     text-align: center;
 }
 
@@ -65,29 +65,27 @@
 }
 
 .profile-img {
-    height: 80px;
-    width: 80px;
-    display: inline-block;
-    margin: 1 auto .5rem auto;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    margin-left: 4.2rem;
+    margin-bottom: .6rem;
 }
 
 .profile-img:hover{
-    transform: translateY(-5px);
+    transform: translateX(-5px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .profile h5 {
     color: #000000;
     font-weight: 600;
+    font-size: medium;
 }
 
 .profile small {
     color: #000000;
     font-weight: 600;
-}
-
-.sidebar {
-    /*overflow-y: auto;*/
 }
 
 .side-menu ul {
@@ -96,15 +94,16 @@
 
 .side-menu a {
     display: block;
-    padding: 1rem 0rem;
+    padding: .5rem 0rem;
     text-decoration: none;
     list-style-type: none;
 }
 
 .side-menu a.active {
-    background: #c5e4cb !important;
+    background: #c1efa4 !important;
     border: black;
     border-radius: 40px;
+    font-weight: 600;
 }
 .side-menu li{
     border: black;
@@ -112,8 +111,8 @@
 }
 
 .side-menu li:hover{
-    transform: translateX(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateX(-3px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .side-menu a.active span, .side-menu a.active small {
@@ -123,39 +122,72 @@
 .side-menu a span {
     display: block;
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 26px;
 }
 
 .side-menu a span, .side-menu a small {
     color: #000000;
 }
 
-#menu-toggle:checked ~ .sidebar {
-    width: 60px;
+.side-menu a small {
+    font-size: 12px;
 }
 
-#menu-toggle:checked ~ .sidebar .side-header span {
-    display: none;
+.logout {
+    margin-top: 5rem;
+    position: absolute;
+    bottom: 20px; /* Keep it fixed at the bottom */
+    left: 10%;
+    width: 80%; /* Adjust width for responsiveness */
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#menu-toggle:checked ~ .sidebar {
+    width: 80px;
 }
 
 #menu-toggle:checked ~ .main-content {
-    margin-left: 60px;
-    width: calc(100% - 60px);
+    margin-left: 80px;
+    width: calc(100% - 80px);
 }
 
 #menu-toggle:checked ~ .main-content header {
-    left: 60px;
+    left: 80px;
 }
 
 #menu-toggle:checked ~ .sidebar .profile,
 #menu-toggle:checked ~ .sidebar .side-menu a small {
     display: none;
 }
-
 #menu-toggle:checked ~ .sidebar .side-menu a span {
     font-size: 1.3rem;
 }
 
+#menu-toggle:checked ~ .sidebar .profile-img {
+    height: 40px; /* Resize for smaller sidebar */
+    width: 40px;
+    margin-left: 10px; /* Center the logo better */
+    transition: all 0.3s ease; /* Smooth resizing */
+}
+
+#menu-toggle:checked ~ .sidebar .profile h5 {
+    display: none; /* Hide the text below the logo */
+}
+
+#menu-toggle:checked ~ .sidebar .profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px; /* Align the logo properly */
+}
+
+#menu-toggle:checked ~ .sidebar .bg-img {
+    margin: auto; /* Center the background image */
+}
 
 .main-content {
     margin-left: 200px;
@@ -194,7 +226,7 @@ header {
 
 .header-content label:first-child span {
     padding-top: 1.5rem;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .header-content label {
@@ -241,11 +273,13 @@ header {
 .user {
     display: flex;
     justify-content: center;
-    text-align: center;
+    text-align: center; 
 }
 
 .user h3{
     padding-right: 30px;
+    margin-top: 8px;
+    font-size: large;
 }
 
 .user a, .bg-img {
@@ -262,23 +296,33 @@ header {
 
 
 main {
-    margin-top: 80px;
+    margin-top: 100px;
     background: #fff;
 }
 
 .page-header {
-    padding: 1.3rem 1rem;
-    background: #E9edf2;
-    border-bottom: 1px solid #dee2e8;
+    padding: 2rem 2rem;
+    background: #d9e8cb;
+    border: 1px solid black;
+    border-radius: 30px;
+    margin: 0rem 1rem
 }
 
-.page-header h1, .page-header small {
+.page-header h1{
     color: #000000;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.page-header small {
+    color: #000000;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .page-content {
     padding: 1.3rem 1rem;
-    background: #f1f4f9;
+    background: #fff;
 }
 
 .analytics {
@@ -286,49 +330,26 @@ main {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 2rem;
     margin-top: .5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .card {
-    box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
-    background: #fff;
-    padding: 1rem;
+    border: 1px solid black;
+    background: #d9e8cb;
+    padding: .8rem 2rem;
     border-radius: 15px;
 }
 .card2 {
-    padding: 1rem;
+    border: 1px solid black;
+    background: #fff;
+    padding: 1rem 2rem;
+    border-radius: 15px;
 }
 
 .card-head {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.card-head2 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.card-head2 a {
-    text-align: center;
-    padding: 1rem 1rem;
-    text-decoration: none;
-    color: black;
-    font-size: 1.5rem;
-    font-weight: 600px;
-    border: solid gainsboro 1px;
-    background: #c5e4cb !important;;
-    border-radius: 40px;
-}
-.card-head2 :hover{
-    transform: translateX(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.card-head2 span {
-    font-size: 3.2rem;
-    color: var(--text-grey);
 }
 
 .card-head h2 {
@@ -339,42 +360,44 @@ main {
 
 .card-head span {
     font-size: 3.2rem;
-    color: var(--text-grey);
+    color: black;
 }
 
 .card-progress small {
-    color: #535151;
-    font-size: .8rem;
+    color: black;
+    font-size: .9rem;
     font-weight: 600;
 }
-
-.card-indicator {
-    margin: .7rem 0rem;
-    height: 10px;
-    border-radius: 4px;
-    background: #e9edf2;
-    overflow: hidden;
+.card-progress h6 {
+    color: black;
+    font-size: .8rem;
+    font-weight: 400;
 }
 
-.indicator {
-    height: 10px;
-    border-radius: 4px;
+.card-head2 {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
 }
 
-.indicator.one {
-    background: #22baa0;
+.card-head2 a {
+    text-align: center;
+    padding: 1rem 1rem;
+    text-decoration: none;
+    color: black;
+    font-size: medium;
+    font-weight: 600px;
+    border: solid black 1px;
+    background: #c1efa4 !important;
+    border-radius: 40px;
 }
-
-.indicator.two {
-    background: #11a8c3;
+.card-head2 :hover{
+    transform: translateX(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-
-.indicator.three {
-    background: #f6d433;
-}
-
-.indicator.four {
-    background: #f25656;
+.card-head2 span {
+    font-size: 3.2rem;
+    color: var(--text-grey);
 }
 
 .records {
@@ -401,6 +424,7 @@ main {
     font-size: .9rem;
     color: #000000;
     font-weight: 600;
+    background: #d9e8cb !important;
 }
 
 input, button, select {
@@ -442,46 +466,35 @@ input, button, select {
 }
 
 table {
-    border-collapse: collapse;
+    border: 1px solid black;
+    border-radius: 30px; /* Rounded corners */
+    border-collapse: separate;
+    overflow: hidden; /* Ensures content stays within the rounded corners */
+    width: 100%; /* Optional: Adjust the table width */
 }
 
 table thead tr {
-    background: #e9edf2;
+    background: #fff;
 }
 
 table thead th {
-    padding: 1rem 0rem;
+    padding: 1rem 1rem; /* Simplified padding */
     text-align: left;
     color: #090000;
-    font-size: .9rem;
-}
-
-table thead th {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    font-size: 0.9rem;
 }
 
 table tbody td {
-    padding: 1rem 0rem;
-    color: #444;
-}
-
-table tbody td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 1rem 1rem; /* Simplified padding */
     color: black;
     font-weight: 600;
-    font-size: .9rem;
-}
-
-table tbody tr {
-    border-bottom: 1px solid #dee2e8;
+    font-size: 0.9rem;
 }
 
 .actions span {
     display: inline-block;
     font-size: 1.5rem;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -496,7 +509,8 @@ table tbody tr {
     }
     
     .sidebar {
-        left: -165px;
+        padding-top: 60px;
+        left: -200px;
         z-index: 90;
     }
     
@@ -515,7 +529,7 @@ table tbody tr {
     }
     
     #menu-toggle:checked ~ .sidebar {
-        width: 165px;
+        width: 200px;
     }
 
     #menu-toggle:checked ~ .sidebar .side-header span {
@@ -528,7 +542,7 @@ table tbody tr {
     }
 
     #menu-toggle:checked ~ .sidebar .side-menu a span {
-        font-size: 1.7rem;
+        font-size: 1rem;
     }
     
     #menu-toggle:checked ~ .main-content header {
@@ -538,4 +552,5 @@ table tbody tr {
     table {
         width: 900px;
     }
+
 }

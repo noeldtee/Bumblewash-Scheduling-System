@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    <title><?= APP_NAME ?></title>
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="<?= ROOT ?>/assets/css/style.css">
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
-
-</head>
-<body>
-    <input type="checkbox" id="menu-toggle">
+<?php include PATH . "/partials/sidenav.php" ?>
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="side-content">
@@ -23,42 +11,42 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="" class="active">
+                        <a href="<?= ROOT ?>/student/dashboard" class="active">
                             <span class="las la-home"></span>
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="<?= ROOT ?>/student/request">
                             <span class="las la-file-alt"></span>
                             <small>Request a Document</small>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="<?= ROOT ?>/student/track">
                             <span class="las la-search"></span>
                             <small>Track Your Request</small>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="<?= ROOT ?>/student/payment">
                             <span class="las la-wallet"></span>
                             <small>Payment History</small>
                         </a>
                     <li>
-                        <a href="">
+                        <a href="<?= ROOT ?>/student/history">
                             <span class="las la-history"></span>
                             <small>Request History</small>
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="<?= ROOT ?>/student/setting">
                             <span class="las la-cog"></span>
                             <small>Settings</small>
                         </a>
                     </li>
                     <li class="logout">
-                        <a href="">
+                        <a href="<?= ROOT ?>/logout">
                             <span class="las la-sign-out-alt"></span>
                             <small>Logout</small>
                         </a>
@@ -102,6 +90,7 @@
                         </div>
                         <div class="card-progress">
                             <small>Total Documents Requested</small>
+                            <h6>This is the total number of documents you've requested so far.</h6>
                         </div>
                     </div>
                     <div class="card">
@@ -111,9 +100,11 @@
                         </div>
                         <div class="card-progress">
                             <small>Total Documents Pending</small>
+                            <h6> Documents that are still being processed or reviewed.</h6>
                         </div>
                     </div>
                     <div class="card2">
+                    <small>Click Below to Get Started on Your Document Request!</small>
                         <div class="card-head2">
                             <a href="">Request a Document</a>
                         </div>
@@ -228,5 +219,5 @@
             </div>
         </main>
     </div>
-</body>
-</html>
+
+<?php include PATH . "/partials/footer.php" ?>
