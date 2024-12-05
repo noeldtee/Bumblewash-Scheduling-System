@@ -10,9 +10,9 @@
 
 <body>
 
-<div class="d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow-sm p-3" style="margin-top: 10rem; width: 100%; max-width: 500px; background-color: white; border-radius: 10px; overflow-y: auto;">
-        <div class="text-center mb-4">
+<div class="d-flex justify-content-center align-items-center vh-150">
+    <div class="card shadow-sm p-3" style=" width: 100%; max-width: 600px; background-color: white; border-radius: 10px; overflow-y: auto;">
+        <div class="text-center mb-3">
             <img src="<?= ROOT ?>/assets/images/logo.png" alt="Logo" width="80" height="76">
             <h5 class="mt-3" style="color: #2e7d32;">Smart Document Request System</h5>
         </div>
@@ -27,6 +27,11 @@
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
+
+            <!-- Default Profile -->
+            <div>
+                    <input type="hidden" name="student_profile" value="<?=ROOT ?>/assets/images/default_profile.png">
+            </div>
 
             <!-- Name Row -->
             <div class="row g-3 mb-3">
@@ -115,7 +120,38 @@
     </div>
 </div>
 
-<!-- Include Bootstrap Bundle -->
-<script src="<?= ROOT ?>/assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Registration Successful</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                User has been successfully registered.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="modalOkButton" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        <?php if (!empty($showSuccessModal)) : ?>
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+
+            // Redirect after modal confirmation
+            document.getElementById('modalOkButton').addEventListener('click', function () {
+                window.location.href = "<?= ROOT ?>/login"; // Redirect to users page
+            });
+        <?php endif; ?>
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

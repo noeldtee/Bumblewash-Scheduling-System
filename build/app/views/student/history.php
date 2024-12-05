@@ -69,8 +69,8 @@
                         <span class="notify">3</span>
                     </div>
                     <div class="user">
-                        <h3>Hello, Noel</h3>
-                        <a href="" class="bg-img" style="background-image: url(<?= ROOT ?>/assets/images/logo.png);"></a>
+                        <h3>Hello, <?= $_SESSION['USER']->student_firstname ?>!</h3>
+                        <a href="" class="bg-img" style="background-image: url(<?= $_SESSION['USER']->student_profile ?>);"></a>
                     </div>
                 </div>
             </div>

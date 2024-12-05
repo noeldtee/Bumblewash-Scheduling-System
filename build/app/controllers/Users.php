@@ -20,6 +20,7 @@ class Users extends Controller
     {
     $errors = [];
     $user = new User();
+    $showSuccessModal = false;
 
     if (count($_POST) > 0) {
 
@@ -49,13 +50,14 @@ class Users extends Controller
 
         $user->insert($_POST);
 
-        redirect('users');
-      } else {
-        $errors = $user->errors;
-      }
+        $showSuccessModal = true;
+        } else {
+            $errors = $user->errors;
+        }
     }
     $this->view('users/create', [
-      'errors' => $errors
+        'errors' => $errors,
+        'showSuccessModal' => $showSuccessModal,
     ]);
   }
 

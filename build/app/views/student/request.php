@@ -70,8 +70,8 @@
                         <span class="notify">3</span>
                     </div>
                     <div class="user">
-                        <h3>Hello, Noel</h3>
-                        <a href="" class="bg-img" style="background-image: url(<?= ROOT ?>/assets/images/logo.png);"></a>
+                        <h3>Hello, <?= $_SESSION['USER']->student_firstname ?>!</h3>
+                        <a href="" class="bg-img" style="background-image: url(<?= $_SESSION['USER']->student_profile ?>);"></a>
                     </div>
                 </div>
             </div>
@@ -87,41 +87,41 @@
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label for="student-name" class="form-label">First Name</label>
-                            <input type="text" id="student-name" name="student_name" class="form-control" placeholder="Enter your first name" required>
+                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->student_firstname ?>" class="form-control" readonly>
                         </div>
                         <div class="col-md-6">
                             <label for="student-number" class="form-label">Last Name</label>
-                            <input type="text" id="student-number" name="student_number" class="form-control" placeholder="Enter your last name" required>
+                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->student_lastname ?>" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label for="student-name" class="form-label">Email</label>
-                            <input type="text" id="student-name" name="student_name" class="form-control" placeholder="Enter your email" required>
+                            <input type="text" id="student-name" value="<?= $_SESSION['USER']->student_email ?>" class="form-control" readonly>
                         </div>
                         <div class="col-md-6">
                             <label for="student-number" class="form-label">Contact Number</label>
-                            <input type="text" id="student-number" name="student_number" class="form-control" placeholder="Enter your contact number" required>
+                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->student_number ?>" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label for="student-name" class="form-label">Student ID</label>
-                            <input type="text" id="student-name" name="student_name" class="form-control" placeholder="Enter your student id" required>
+                            <input type="text" id="student-name" value="<?= $_SESSION['USER']->studentid ?>" class="form-control" readonly>
                         </div>
                         <div class="col-md-6">
                             <label for="student-number" class="form-label">Year Level</label>
-                            <input type="text" id="student-number" name="student_number" class="form-control" placeholder="Enter your year level" required>
+                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->year_level ?>" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
                             <label for="student-name" class="form-label">Course</label>
-                            <input type="text" id="student-name" name="student_name" class="form-control" placeholder="Enter your course" required>
+                            <input type="text" id="student-name" value="<?= $_SESSION['USER']->course ?>" class="form-control" readonly>
                         </div>
                         <div class="col-md-6">
                             <label for="student-number" class="form-label">Section</label>
-                            <input type="text" id="student-number" name="student_number" class="form-control" placeholder="Enter your section" required>
+                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->section ?>" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="row g-3 mb-3">
