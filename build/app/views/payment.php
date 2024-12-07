@@ -12,36 +12,36 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="<?= ROOT ?>/student/dashboard">
+                        <a href="<?= ROOT ?>/dashboard">
                             <span class="las la-home"></span>
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/request">
+                        <a href="<?= ROOT ?>/request">
                             <span class="las la-file-alt"></span>
                             <small>Request a Document</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/track">
+                        <a href="<?= ROOT ?>/track">
                             <span class="las la-search"></span>
                             <small>Track Your Request</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/payment">
+                        <a href="<?= ROOT ?>/payment" class="active">
                             <span class="las la-wallet"></span>
                             <small>Payment History</small>
                         </a>
                     <li>
-                        <a href="<?= ROOT ?>/student/history" class="active">
+                        <a href="<?= ROOT ?>/history">
                             <span class="las la-history"></span>
                             <small>Request History</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/setting">
+                        <a href="<?= ROOT ?>/setting">
                             <span class="las la-cog"></span>
                             <small>Settings</small>
                         </a>
@@ -77,13 +77,13 @@
         </header>
         <main>
             <div class="page-header">
-                <h1>Request History</h1>
-                <small>Review all your past document requests, check their status, and access related details.</small>
+                <h1>Your Payment History</h1>
+                <small>View and manage your payment history, track their status, and download payment receipts.</small>
             </div>
             <div class="records table-responsive">
                     <div class="record-header">
                         <div class="add">
-                            <span>History Table</span>
+                            <span>Payments Table</span>
                         </div>
                         <div class="browse">
                             <input type="search" placeholder="Search" class="record-search">
@@ -99,7 +99,7 @@
                                     <th>REQUEST ID</th>
                                     <th>NAME</th>
                                     <th>DOCUMENT REQUESTED</th>
-                                    <th>PAYMENT STATUS</th>
+                                    <th>PRICE</th>
                                     <th>REQUESTED DATE</th>
                                     <th>STATUS</th>
                                     <th>ACTIONS</th>
@@ -110,7 +110,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>Paid</td>
+                                    <td>₱200</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>
@@ -125,7 +125,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>Paid</td>
+                                    <td>₱200</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>
@@ -140,7 +140,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>Paid</td>
+                                    <td>₱200</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>
@@ -155,7 +155,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>Paid</td>
+                                    <td>₱200</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>
@@ -170,7 +170,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>Paid</td>
+                                    <td>₱200</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>

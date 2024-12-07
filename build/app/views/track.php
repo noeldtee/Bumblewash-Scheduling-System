@@ -1,7 +1,5 @@
 <?php include PATH . "/partials/sidenav.php" ?>
-
-
-<link rel="stylesheet" href="<?= ROOT ?>/assets/css/settings.css">
+<link rel="stylesheet" href="<?= ROOT ?>/assets/css/track.css">
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="side-content">
@@ -14,36 +12,36 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="<?= ROOT ?>/student/dashboard">
+                        <a href="<?= ROOT ?>/dashboard" >
                             <span class="las la-home"></span>
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/request">
+                        <a href="<?= ROOT ?>/request">
                             <span class="las la-file-alt"></span>
                             <small>Request a Document</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/track">
+                        <a href="<?= ROOT ?>/track" class="active">
                             <span class="las la-search"></span>
                             <small>Track Your Request</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/payment">
+                        <a href="<?= ROOT ?>/payment">
                             <span class="las la-wallet"></span>
                             <small>Payment History</small>
                         </a>
                     <li>
-                        <a href="<?= ROOT ?>/student/history">
+                        <a href="<?= ROOT ?>/history">
                             <span class="las la-history"></span>
                             <small>Request History</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/setting" class="active">
+                        <a href="<?= ROOT ?>/setting">
                             <span class="las la-cog"></span>
                             <small>Settings</small>
                         </a>
@@ -78,62 +76,31 @@
             </div>
         </header>
         <main>
-        <div class="page-header">
-                <h1>Settings</h1>
-                <small>Manage your Account</small>
+            <div class="page-header">
+                <h1>Track Your Request</h1>
+                <small>Check the status of your document request here.</small>
             </div>
             <div class="page-content">
                 <!-- Analytics Cards -->
                 <div class="analytics">
                     <div class="card">
                         <div class="card-head">
-                            <h2>Personal Information</h2>
-                        </div>
-                        <div class="card-progress">
-                            <small>Name: Noel Christopher Tee</small>
-                            <small>Email: noeldtee@gmail.com</small>
-                            <small>Contact Number: 09876532892</small>
-                          <div></div>
-                            <a href="">Edit Details</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-head">
-                            <h2>Payment Settings</h2>
-                        
-                        </div>
-                        <div class="card-progress">
-                            <small>Saved Method: Gcash (*******2892)</small>
-                           
-                         
-                            <a href="">Add Method</a>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-head">
-                            <h2>Account Security</h2>
-                        
-                        </div>
-                        <div class="card-progress">
-                            <small>Change Password?</small>
-                           
-                         
+                            <h2>Certificate of Enrollment</h2>
                             <a href="">View Details</a>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-head">
-                            <h2>Privacy and Terms</h2>
-                        </div>
                         <div class="card-progress">
-                           
-                            <a href="">View Privacy and Policy</a>
-                            <div></div>
-                            <a href="">View Terms and Conditions</a>
+                            <small>Request Date:</small>
+                            <small>Status:</small>
+                            <small>Pickup Date:</small>
+                            <small>Payment Status:</small>
+                        </div>
+                    </div>
+                    <div class="card2">
+                        <div class="card-head2">
+                            <a href="">Request Another Document</a>
                         </div>
                     </div>
                 </div>
-            </div>
         </main>
 
 <?php include PATH . "/partials/footer.php" ?>

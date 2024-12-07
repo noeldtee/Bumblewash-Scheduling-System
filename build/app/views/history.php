@@ -1,4 +1,5 @@
 <?php include PATH . "/partials/sidenav.php" ?>
+<link rel="stylesheet" href="<?= ROOT ?>/assets/css/history.css">
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="side-content">
@@ -11,36 +12,36 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="<?= ROOT ?>/student/dashboard" class="active">
+                        <a href="<?= ROOT ?>/dashboard">
                             <span class="las la-home"></span>
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/request">
+                        <a href="<?= ROOT ?>/request">
                             <span class="las la-file-alt"></span>
                             <small>Request a Document</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/track">
+                        <a href="<?= ROOT ?>/track">
                             <span class="las la-search"></span>
                             <small>Track Your Request</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/payment">
+                        <a href="<?= ROOT ?>/payment">
                             <span class="las la-wallet"></span>
                             <small>Payment History</small>
                         </a>
                     <li>
-                        <a href="<?= ROOT ?>/student/history">
+                        <a href="<?= ROOT ?>/history" class="active">
                             <span class="las la-history"></span>
                             <small>Request History</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/setting">
+                        <a href="<?= ROOT ?>/setting">
                             <span class="las la-cog"></span>
                             <small>Settings</small>
                         </a>
@@ -55,8 +56,7 @@
             </div>
         </div>
     </div>
-
-    <!-- Main Content -->
+    
     <div class="main-content">
         <header>
             <div class="header-content">
@@ -77,44 +77,13 @@
         </header>
         <main>
             <div class="page-header">
-                <h1>Dashboard</h1>
-                <small>Welcome back! Here's an overview of your activity.</small>
+                <h1>Request History</h1>
+                <small>Review all your past document requests, check their status, and access related details.</small>
             </div>
-            <div class="page-content">
-                <!-- Analytics Cards -->
-                <div class="analytics">
-                    <div class="card">
-                        <div class="card-head">
-                            <h2>0</h2>
-                            <span class="las la-user-friends"></span>
-                        </div>
-                        <div class="card-progress">
-                            <small>Total Documents Requested</small>
-                            <h6>This is the total number of documents you've requested so far.</h6>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-head">
-                            <h2>0</h2>
-                            <span class="las la-hourglass-half"></span>
-                        </div>
-                        <div class="card-progress">
-                            <small>Total Documents Pending</small>
-                            <h6> Documents that are still being processed or reviewed.</h6>
-                        </div>
-                    </div>
-                    <div class="card2">
-                    <small>Click Below to Get Started on Your Document Request!</small>
-                        <div class="card-head2">
-                            <a href="">Request a Document</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- Records Table -->
-                <div class="records table-responsive">
+            <div class="records table-responsive">
                     <div class="record-header">
                         <div class="add">
-                            <span>Recent Activity</span>
+                            <span>History Table</span>
                         </div>
                         <div class="browse">
                             <input type="search" placeholder="Search" class="record-search">
@@ -130,7 +99,7 @@
                                     <th>REQUEST ID</th>
                                     <th>NAME</th>
                                     <th>DOCUMENT REQUESTED</th>
-                                    <th>PRICE</th>
+                                    <th>PAYMENT STATUS</th>
                                     <th>REQUESTED DATE</th>
                                     <th>STATUS</th>
                                     <th>ACTIONS</th>
@@ -141,7 +110,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
+                                    <td>Paid</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>
@@ -156,7 +125,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
+                                    <td>Paid</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>
@@ -171,7 +140,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
+                                    <td>Paid</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>
@@ -186,7 +155,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
+                                    <td>Paid</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>
@@ -201,7 +170,7 @@
                                     <td>#1</td>
                                     <td>Noel Christopher Tee</td>
                                     <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
+                                    <td>Paid</td>
                                     <td>Nov 28, 2024</td>
                                     <td>Waiting for Approval</td>
                                     <td>
@@ -215,9 +184,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
             </div>
         </main>
-    </div>
 
 <?php include PATH . "/partials/footer.php" ?>

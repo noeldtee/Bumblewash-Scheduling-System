@@ -13,36 +13,36 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="<?= ROOT ?>/student/dashboard">
+                        <a href="<?= ROOT ?>/dashboard">
                             <span class="las la-home"></span>
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/request" class="active">
+                        <a href="<?= ROOT ?>/request" class="active">
                             <span class="las la-file-alt"></span>
                             <small>Request a Document</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/track">
+                        <a href="<?= ROOT ?>/track">
                             <span class="las la-search"></span>
                             <small>Track Your Request</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/payment">
+                        <a href="<?= ROOT ?>/payment">
                             <span class="las la-wallet"></span>
                             <small>Payment History</small>
                         </a>
                     <li>
-                        <a href="<?= ROOT ?>/student/history">
+                        <a href="<?= ROOT ?>/history">
                             <span class="las la-history"></span>
                             <small>Request History</small>
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/student/setting">
+                        <a href="<?= ROOT ?>/setting">
                             <span class="las la-cog"></span>
                             <small>Settings</small>
                         </a>
@@ -124,56 +124,42 @@
                             <input type="text" id="student-number" value="<?= $_SESSION['USER']->section ?>" class="form-control" readonly>
                         </div>
                     </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <label for="document-type" class="form-label">Select Document</label>   
-                            <select id="document-type" name="document_type" class="form-select" required onchange="updatePrice()">
-                                <option value="">Choose a document</option>
-                                <option value="coe">Certificate of Enrollment</option>
-                                <option value="cor">Certificate of Registration</option>
-                                <option value="gm">Good Moral Certificate</option>
-                                <option value="tor">Transcript of Records</option>
-                            </select>
+
+                    <div id="document-requests-container">
+                        <!-- Document Request (First Row) -->
+                        <div class="row g-3 mb-3 document-request">
+                            <div class="col-md-6">
+                                <label for="document-type" class="form-label">Select Document</label>   
+                                <select id="document-type" name="document_type[]" class="form-select" required onchange="updatePrice(this)">
+                                    <option value="">Choose a document</option>
+                                    <!-- Example Options (to be dynamically generated from the backend) -->
+                                    <option value="1">Transcript</option>
+                                    <option value="2">Diploma</option>
+                                    <option value="3">Certificate</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <label for="price" class="form-label">Price</label>
+                                <input type="text" id="price" name="price[]" class="form-control" placeholder="Price will be displayed here" readonly>
+                            </div>
+                            <div class="col-md-1 d-flex align-items-end">
+                                <button type="button" class="btn btn-danger remove-row" onclick="removeRow(this)">Remove</button>
+                            </div>
                         </div>
-                        <div id="price-display" class="col-md-6">
-                            <label for="price" class="form-label">Price</label>
-                            <input type="text" id="price" class="form-control" placeholder="Price will be displayed here" readonly>
-                        </div>
+                    </div>
+                    <!-- Button to Add More Rows -->
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-success" onclick="addRow()">Add More</button>
+                    </div>
+
+                    <div id="purpose" class="col-md">
+                            <label class="form-label">Purpose for Requesting</label>
+                            <textarea class="form-control" aria-label="With textarea" fixed></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit Request</button>
                 </form>
             </div>
         </main>
     </div>
-
-    <script>
-        // JavaScript to update price based on selected document type
-        function updatePrice() {
-            const documentType = document.getElementById("document-type").value;
-            const priceField = document.getElementById("price");
-
-            let price = 0;
-
-            switch (documentType) {
-                case 'coe':
-                    price = 100; // Example price for Certificate of Enrollment
-                    break;
-                case 'cor':
-                    price = 150; // Example price for Certificate of Registration
-                    break;
-                case 'gm':
-                    price = 120; // Example price for Good Moral Certificate
-                    break;
-                case 'tor':
-                    price = 200; // Example price for Transcript of Records
-                    break;
-                default:
-                    price = 0;
-            }
-
-            // Display the price in the input field
-            priceField.value = price > 0 ? `₱${price}` : "Select a document to see price";
-        }
-    </script>
 
 <?php include PATH . "/partials/footer.php" ?>
