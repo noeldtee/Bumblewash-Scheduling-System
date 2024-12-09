@@ -28,13 +28,15 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="<?= ROOT ?>/admins/dashboard">
+                        <a href="<?= ROOT ?>/admins/dashboard" >
+                        <i class="fa-solid fa-chart-line"></i>
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
                         <a href="" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                         data-bs-target="#request" aria-expanded="false" aria-controls="auth">
+                        <i class="fa-solid fa-file"></i>
                         <small>Request Management</small>
                         </a>
                         <ul id="request" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -56,18 +58,20 @@
                     </ul>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/documents/doc">
+                        <a href="<?= ROOT ?>/documents/doc" >
+                        <i class="fa-solid fa-folder-open"></i>
                             <small>Document Management</small>
                         </a>
                     </li>
                     <li>
                         <a href="" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                         data-bs-target="#payment" aria-expanded="false" aria-controls="auth">
+                        <i class="fa-solid fa-wallet"></i>
                         <small>Payment Management</small>
                         </a>
                         <ul id="payment" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/payments/manage"  class="sidebar-link">Payment Logs</a>
+                            <a href="<?= ROOT ?>/payments/manage" class="sidebar-link">Payment Logs</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="<?= ROOT ?>/payments/setting" class="active">Payment Settings</a>
@@ -77,6 +81,7 @@
                     <li>
                         <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                         data-bs-target="#user" aria-expanded="false" aria-controls="auth">
+                        <i class="fa-solid fa-user"></i>
                         <small>User Management</small>
                         </a>
                         <ul id="user" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
@@ -90,7 +95,7 @@
                     </li>
                     <li class="logout">
                         <a href="<?= ROOT ?>/logout">
-                            <span class="las la-sign-out-alt"></span>
+                        <i class="fa-solid fa-right-from-bracket"></i>
                             <small>Logout</small>
                         </a>
                     </li>
