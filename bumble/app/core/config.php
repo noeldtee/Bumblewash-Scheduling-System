@@ -1,6 +1,6 @@
 <?php
 
-define('APP_NAME', 'BumbleWash');
+define('APP_NAME', 'Smart Document Request System');
 
 define('ROOT', 'http://localhost/capstone/bumble/public');
 define('PATH', 'C:/xampp/htdocs/capstone/bumble/app/views/');

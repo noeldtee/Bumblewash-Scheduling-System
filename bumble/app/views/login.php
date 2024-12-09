@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="<?= ROOT ?>/assets/bootstrap/css/bootstrap.min.css">
 </head>
 
-<body>
+<body style="background-image: url(<?= ROOT ?>/assets/images/bpc.png);">
 <div class="d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px; background-color: white; border-radius: 10px;">
         <div class="text-center mb-4">

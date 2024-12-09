@@ -5,9 +5,6 @@ class Admins extends Controller
 
   public function index()
   {
-    if (!Admin_Auth::logged_in()) {
-      redirect('admins/login');
-    }
 
     $this->view('admins/dashboard');
   }
@@ -41,9 +38,6 @@ class Admins extends Controller
   }
   public function user_list()
   {
-    if (!Admin_Auth::logged_in()) {
-      redirect('admins');
-    }
 
     $userModel = new User();
 
@@ -66,10 +60,6 @@ class Admins extends Controller
   }
   public function user_delete($id)
   {
-    if (!Admin_Auth::logged_in()) {
-    redirect('login');
-    }
-  
     $x = new User();
     $arr['id'] = $id;
     $row = $x->first($arr);
@@ -87,9 +77,6 @@ class Admins extends Controller
   }
   public function message_list()
   {
-    if (!Admin_Auth::logged_in()) {
-      redirect('admins');
-    }
 
     $messageModel = new Message();
 
@@ -112,9 +99,6 @@ class Admins extends Controller
   }
   public function message_delete($id)
   {
-    if (!Admin_Auth::logged_in()) {
-    redirect('login');
-    }
   
     $x = new Message();
     $arr['id'] = $id;
@@ -133,9 +117,7 @@ class Admins extends Controller
   }
   public function booking_list()
   {
-    if (!Admin_Auth::logged_in()) {
-      redirect('admins');
-    }
+ 
 
     $bookModel = new Book();
 
@@ -158,9 +140,7 @@ class Admins extends Controller
   }
   public function booking_edit($id)
   {
-  if (!Admin_Auth::logged_in()) {
-    redirect('admins');
-  }
+
 
   $x = new Book();
   $arr['id'] = $id;
@@ -178,9 +158,7 @@ class Admins extends Controller
   }
   public function booking_delete($id)
   {
-    if (!Admin_Auth::logged_in()) {
-    redirect('login');
-    }
+
   
     $x = new Book();
     $arr['id'] = $id;
@@ -199,9 +177,7 @@ class Admins extends Controller
   }
   public function admin_list()
   {
-    if (!Admin_Auth::logged_in()) {
-        redirect('admins');
-    }
+
 
     $adminModel = new Admin();
 
@@ -224,9 +200,7 @@ class Admins extends Controller
   }
   public function admin_create()
   {
-    if (!Admin_Auth::logged_in()) {
-      redirect('admins/login');
-    }
+
   
     $errors = [];
     $admin = new Admin();
@@ -252,9 +226,6 @@ class Admins extends Controller
   }
   public function admin_edit($id)
   {
-  if (!Admin_Auth::logged_in()) {
-    redirect('login');
-  }
 
   $x = new Admin();
   $arr['id'] = $id;
@@ -273,10 +244,7 @@ class Admins extends Controller
   }
   public function admin_delete($id)
   {
-    if (!Admin_Auth::logged_in()) {
-      redirect('admins/login');
-    }
-  
+
     $x = new Admin();
     $arr['id'] = $id;
     $row = $x->first($arr);
@@ -294,9 +262,6 @@ class Admins extends Controller
   }
   public function service()
   {
-    if (!Admin_Auth::logged_in()) {
-        redirect('admins');
-    }
 
     $serviceModel = new Service();
 
@@ -320,9 +285,7 @@ class Admins extends Controller
   
   public function service_add()
   {
-      if (!Admin_Auth::logged_in()) {
-          redirect('admins/login');
-      }
+
   
       $errors = [];
       $service = new Service();
@@ -346,9 +309,7 @@ class Admins extends Controller
 
   public function service_edit($id)
   {
-  if (!Admin_Auth::logged_in()) {
-    redirect('admins');
-  }
+
 
   $x = new Service();
   $arr['id'] = $id;
@@ -367,9 +328,7 @@ class Admins extends Controller
 
   public function service_delete($id)
   {
-    if (!Admin_Auth::logged_in()) {
-      redirect('admins/login');
-    }
+
 
     $x = new Service();
     $arr['id'] = $id;

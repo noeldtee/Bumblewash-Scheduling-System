@@ -17,7 +17,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/requests/request">
+                        <a href="<?= ROOT ?>/books/request">
                             <span class="las la-file-alt"></span>
                             <small>Request a Document</small>
                         </a>
@@ -106,7 +106,7 @@
                     <div class="card2">
                     <small>Click Below to Get Started on Your Document Request!</small>
                         <div class="card-head2">
-                            <a href="">Request a Document</a>
+                            <a href="<?= ROOT ?>/books/request">Request a Document</a>
                         </div>
                     </div>
                 </div>
@@ -135,34 +135,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>

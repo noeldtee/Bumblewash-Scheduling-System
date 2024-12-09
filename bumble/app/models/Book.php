@@ -6,10 +6,22 @@ class Book extends Model
     {
         $this->errors = [];
 
-        // Validate service availability
-        if (!$this->isServiceAvailable($data['book_document'])) {
-            $this->errors['availability'] = 'The selected document is not available';
+        // Debugging: Log the input data
+        error_log("Validating data: " . print_r($data, true));
+
+        // Check if `book_document` is an array
+        if (isset($data['book_document']) && is_array($data['book_document'])) {
+            foreach ($data['book_document'] as $index => $document) {
+                if (!$this->isServiceAvailable($document)) {
+                    $this->errors['availability'][$index] = "The document '$document' is not available";
+                }
+            }
+        } else {
+            $this->errors['book_document'] = 'No documents selected or invalid format';
         }
+
+        // Debugging: Log the errors
+        error_log("Validation errors: " . print_r($this->errors, true));
 
         // Return validation result
         return count($this->errors) === 0;
@@ -30,4 +42,13 @@ class Book extends Model
 
         return $result['count'] > 0;
     }
+
+    public function insert($data)
+    {
+        $keys = array_keys($data);
+        $query = "INSERT INTO books (" . implode(',', $keys) . ") VALUES (:" . implode(',:', $keys) . ")";
+        $db = new Database();
+        $db->query($query, $data);
+    }
 }
+

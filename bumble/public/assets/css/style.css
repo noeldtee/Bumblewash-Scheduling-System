@@ -16,6 +16,13 @@
     font-family: 'Parkinsans', sans-serif;
 }
 
+body{
+    width: 100%;
+    height: 100vh;
+    background: #fff;
+    background-size: cover;
+}
+
 #menu-toggle {
     display: none;
 }
@@ -297,7 +304,6 @@ header {
 
 main {
     margin-top: 100px;
-    background: #fff;
 }
 
 .page-header {
@@ -322,7 +328,6 @@ main {
 
 .page-content {
     padding: 1.3rem 1rem;
-    background: #fff;
 }
 
 .analytics {
@@ -402,7 +407,6 @@ main {
 
 .records {
     box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
-    background: #fff;
     border-radius: 3px;
 }
 
@@ -482,6 +486,7 @@ table thead th {
     text-align: left;
     color: #090000;
     font-size: 0.9rem;
+
 }
 
 table tbody td {
@@ -489,6 +494,7 @@ table tbody td {
     color: black;
     font-weight: 600;
     font-size: 0.9rem;
+    background: #fff;
 }
 
 @media only screen and (max-width: 1200px) {

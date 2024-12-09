@@ -1,6 +1,6 @@
 <?php
 
-class About extends Controller
+class Track extends Controller
 {
   public function index()
   {
@@ -8,6 +8,6 @@ class About extends Controller
       redirect('login');
     }
 
-    $this->view('about');
+    $this->view('track');
   }
 }

@@ -77,6 +77,10 @@
         </div>
     </header>
     <main>
+        <div class="page-header">
+            <h1>Request Document</h1>
+            <small>Fill out the form below to request your document</small>
+        </div>
         <?php if (!empty($errors)): ?>
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 <?php foreach ($errors as $error): ?>
@@ -85,13 +89,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         <?php endif; ?>
-        <div class="page-header">
-            <h1>Request Document</h1>
-            <small>Fill out the form below to request your document</small>
-        </div>
         <div class="page-content">
             <!-- Request Form -->
-            <form action="<?= ROOT ?>/requests/request" method="POST" class="form-container">
+            <form action="<?= ROOT ?>/books/request" method="POST" class="form-container">
                 <h3>Personal Information</h3>
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
@@ -102,7 +102,7 @@
                     <div class="col-md-6">
                         <label class="form-label">Last Name</label>
                         <input type="text" name="book_lname" value="<?= $_SESSION['USER']->student_lastname ?>" class="form-control" readonly>
-                        <input type="hidden" name="book_lname" value="<?= $_SESSION['USER']->student_firstname ?>">
+                        <input type="hidden" name="book_lname" value="<?= $_SESSION['USER']->student_lastname ?>">
                     </div>
                 </div>
                 <div class="row g-3 mb-3">
@@ -142,53 +142,140 @@
                     </div>
                 </div>
                 <h3>Document Information</h3>
-                <div class="row g-3 mb-3">
-                <label for="">Select Document</label>
-                    <div class="input-group">
-                    <select id="book_document" name="book_document" class="form-select">
-                    <option selected disabled>Select a Document</option>
-                    <?php
-                    $db = new Database();
-                    $connection = $db->connect();
+                <div class="row g-3 mb-3" id="document-container">
+                    <label for="">Select Document</label>
+                    <div id="document-container">
+                        <div class="input-group mb-3">
+                            <select id="book_document" name="book_document[]" class="form-select">
+                                <option selected disabled>Select a Document</option>
+                                <?php
+                                $db = new Database();
+                                $connection = $db->connect();
 
-                    $query = "SELECT DISTINCT document FROM services WHERE status = 'Available'"; // Include status condition
-                    $result = $connection->query($query);
+                                $query = "SELECT DISTINCT document FROM services WHERE status = 'Available'";
+                                $result = $connection->query($query);
 
-                    if ($result) {
-                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                            $document = $row['document'];
-                            echo '<option value="' . $document . '">' . $document . '</option>';
-                        }
-                    } else {
-                        echo "Error fetching services: " . $connection->errorInfo()[2];
-                    }
-                    ?>
-                    </select>
+                                if ($result) {
+                                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                                        $document = $row['document'];
+                                        echo '<option value="' . $document . '">' . $document . '</option>';
+                                    }
+                                }
+                                ?>
+                            </select>
+                            <input type="text" id="price" name="price[]" class="form-control" placeholder="Price will be displayed here" readonly>
+                            <button class="btn btn-outline-secondary add-more" type="button">Add More</button>
+                        </div>
                     </div>
-                    <div class="col-md-6">
-                        <label for="price">Price</label>
-                        <input type="text" id="price" name="price" class="form-control" placeholder="Price will be displayed here" readonly>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Purpose for Requesting</label>
+                        <textarea class="form-control" name="purpose" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-check">
+                            <input class="form-check-input \" type="checkbox" value="" id="invalidCheck" required>
+                            <label class="form-check-label" href="terms_and_conditions.html" for="invalidCheck">
+                                Agree to terms and conditions
+                            </label>
+                            <div class="invalid-feedback">
+                                You must agree before submitting.
+                            </div>
+                        </div>
+                        <input type="submit" value="Book Now" class="submit">
                     </div>
                 </div>
-                <button type="submit" id="submit" class="btn btn-primary">Proceed to payment</button>
-            </form>
         </div>
-    </main>
+        </form>
+</div>
 
 <script>
-    document.getElementById('book_document').addEventListener('change', fetchPrice);
+document.addEventListener('DOMContentLoaded', function () {
+    const container = document.getElementById('document-container');
 
-    function fetchPrice() {
-        var documentName = document.getElementById('book_document').value;
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                document.getElementById('price').value = xhr.responseText;
+    // Event delegation for "Add More" button
+    container.addEventListener('click', function (e) {
+        if (e.target && e.target.classList.contains('add-more')) {
+            addMoreDocumentDropdown(e.target.closest('.input-group'));
+        }
+    });
+
+    // Dynamically add a new input group
+    function addMoreDocumentDropdown(currentGroup) {
+        const newInputGroup = document.createElement('div');
+        newInputGroup.classList.add('input-group', 'mb-3');
+
+        // Dropdown for document selection
+        const newDropdown = document.createElement('select');
+        newDropdown.classList.add('form-select');
+        newDropdown.name = 'book_document[]';
+        newDropdown.innerHTML = `
+            <option selected disabled>Select a Document</option>
+            <?php
+            $db = new Database();
+            $connection = $db->connect();
+
+            $query = "SELECT DISTINCT document FROM services WHERE status = 'Available'";
+            $result = $connection->query($query);
+
+            if ($result) {
+                while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $document = $row['document'];
+                    echo '<option value="' . $document . '">' . $document . '</option>';
+                }
             }
-        };
-        xhr.open('GET', '<?= ROOT ?>/Books/getPrice?service=' + encodeURIComponent(documentName), true);
-        xhr.send();
+            ?>
+        `;
+
+        // Input for price
+        const newPriceInput = document.createElement('input');
+        newPriceInput.type = 'text';
+        newPriceInput.name = 'price[]';
+        newPriceInput.classList.add('form-control');
+        newPriceInput.placeholder = 'Price will be displayed here';
+        newPriceInput.readOnly = true;
+
+        // "Add More" button
+        const newButton = document.createElement('button');
+        newButton.type = 'button';
+        newButton.classList.add('btn', 'btn-outline-secondary', 'add-more');
+        newButton.textContent = 'Add More';
+
+        // Append elements to the new input group
+        newInputGroup.appendChild(newDropdown);
+        newInputGroup.appendChild(newPriceInput);
+        newInputGroup.appendChild(newButton);
+
+        // Insert new group after the current group
+        currentGroup.parentNode.insertBefore(newInputGroup, currentGroup.nextSibling);
+
+        // Attach event listener to fetch price for the new dropdown
+        newDropdown.addEventListener('change', fetchPrice);
     }
+
+    // Fetch price dynamically when a document is selected
+    function fetchPrice(event) {
+        const dropdown = event.target; // The dropdown that triggered the change
+        const documentName = dropdown.value;
+        const priceInput = dropdown.nextElementSibling; // The corresponding price input
+
+        if (documentName) {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    priceInput.value = xhr.responseText;
+                }
+            };
+            xhr.open('GET', '<?= ROOT ?>/Books/getPrice?service=' + encodeURIComponent(documentName), true);
+            xhr.send();
+        }
+    }
+
+    // Attach fetchPrice to the initial dropdown
+    const initialDropdown = document.querySelector('#book_document');
+    if (initialDropdown) {
+        initialDropdown.addEventListener('change', fetchPrice);
+    }
+});
 </script>
 
 <?php include PATH . "partials/footer.php" ?>
