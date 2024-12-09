@@ -9,5 +9,4 @@ class Request extends Model
     {
         $this->errors = [];
     }
-
 }

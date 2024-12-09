@@ -4,25 +4,58 @@ class Requests extends Controller
 {
   public function index()
   {
+    if (!Auth::logged_in()) {
+      redirect('login');
+    }
+
+    $errors = [];
+    $request = new Request();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      if ($request->validate($_POST)) {
+        $request->insert($_POST);
+        redirect('Dashboard');
+      } else {
+        $errors = $request->errors;
+      }
+    }
+
+    $this->view('requests/request', ['errors' => $errors]);
+  }
+
+  public function fetchDocuments()
+  {
+    if (!Auth::logged_in()) {
+      redirect('login');
+    }
+
+    $documentModel = new DocumentModel();
+    $documents = $documentModel->getAvailableDocuments();
+    echo json_encode($documents);
+  }
+
+  public function getPriceByDocumentType()
+  {
       if (!Auth::logged_in()) {
           redirect('login');
       }
   
-      $errors = [];
-      $request = new Request();
+      if (isset($_GET['document_type'])) {
+          $document_type = $_GET['document_type'];
   
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-          if ($request->validate($_POST)) {
-              $request->insert($_POST);
-              redirect('Dashboard');
+          $documentModel = new DocumentModel();
+          $price = $documentModel->getPriceByType($document_type);
+  
+          if ($price !== null) {
+              echo $price; // Output the price only
           } else {
-              $errors = $request->errors;
+              echo "Error: Document type not found."; // Handle missing document type
           }
+      } else {
+          echo "Error: Document type not provided."; // Handle missing parameter
       }
-      $this->view('requests/request', [
-          'errors' => $errors
-      ]);
   }
+
 
   public function create()
   {
@@ -34,23 +67,23 @@ class Requests extends Controller
   }
 
   public function list()
-  { 
+  {
     $this->view('requests/list');
   }
   public function pending()
-  { 
+  {
     $this->view('requests/pending');
   }
   public function inprocess()
-  { 
+  {
     $this->view('requests/inprocess');
   }
   public function completed()
-  { 
+  {
     $this->view('requests/completed');
   }
   public function rejected()
-  { 
+  {
     $this->view('requests/rejected');
   }
 }

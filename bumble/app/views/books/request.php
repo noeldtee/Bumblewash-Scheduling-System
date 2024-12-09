@@ -96,59 +96,74 @@
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label class="form-label">First Name</label>
-                        <input type="text" name="student_firstname" value="<?= $_SESSION['USER']->student_firstname ?>" class="form-control" readonly>
+                        <input name="book_fname" value="<?= $_SESSION['USER']->student_firstname ?>" type="text" class="form-control" readonly>
+                        <input type="hidden" name="book_fname" value="<?= $_SESSION['USER']->student_firstname ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Last Name</label>
-                        <input type="text" name="student_lastname" value="<?= $_SESSION['USER']->student_lastname ?>" class="form-control" readonly>
+                        <input type="text" name="book_lname" value="<?= $_SESSION['USER']->student_lastname ?>" class="form-control" readonly>
+                        <input type="hidden" name="book_lname" value="<?= $_SESSION['USER']->student_firstname ?>">
                     </div>
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Email</label>
-                        <input type="email" name="student_email" value="<?= $_SESSION['USER']->student_email ?>" class="form-control" readonly>
+                        <input name="book_email" value="<?= $_SESSION['USER']->student_email ?>" type="email" class="form-control" readonly>
+                        <input type="hidden" name="book_email" value="<?= $_SESSION['USER']->student_email ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Contact Number</label>
-                        <input type="text" name="student_number" value="<?= $_SESSION['USER']->student_number ?>" class="form-control" readonly>
+                        <input name="book_number" value="<?= $_SESSION['USER']->student_number ?>" type="text" class="form-control" readonly>
+                        <input type="hidden" name="book_number" value="<?= $_SESSION['USER']->student_number ?>">
                     </div>
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Student ID</label>
-                        <input type="text" value="<?= $_SESSION['USER']->student_id ?>" class="form-control" readonly>
+                        <input name="student_id" value="<?= $_SESSION['USER']->student_id ?>" type="text" class="form-control" readonly>
+                        <input type="hidden" name="student_id" value="<?= $_SESSION['USER']->student_id ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Year Level</label>
-                        <input type="text" name="year_level" value="<?= $_SESSION['USER']->year_level ?>" class="form-control" readonly>
+                        <input name="year_level" value="<?= $_SESSION['USER']->year_level ?>" type="text" class="form-control" readonly>
+                        <input type="hidden" name="year_level" value="<?= $_SESSION['USER']->year_level ?>">
                     </div>
                 </div>
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Course</label>
-                        <input type="text" name="course" value="<?= $_SESSION['USER']->course ?>" class="form-control" readonly>
+                        <input name="course" value="<?= $_SESSION['USER']->course ?>" type="text" class="form-control" readonly>
+                        <input type="hidden" name="course" value="<?= $_SESSION['USER']->course ?>">
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Section</label>
-                        <input type="text" name="section" value="<?= $_SESSION['USER']->section ?>" class="form-control" readonly>
+                        <input name="section" value="<?= $_SESSION['USER']->section ?>" type="text" class="form-control" readonly>
+                        <input type="hidden" name="section" value="<?= $_SESSION['USER']->section ?>">
                     </div>
                 </div>
                 <h3>Document Information</h3>
                 <div class="row g-3 mb-3">
+                <label for="">Select Document</label>
                     <div class="input-group">
-                        <select class="form-select" id="documentSelect" onchange="fetchPrice()" aria-label="Choose a document">
-                            <option selected disabled>Choose a document to request</option>
-                            <?php
-                            $documentModel = new DocumentModel();
-                            $documents = $documentModel->getAvailableDocuments();
+                    <select id="book_document" name="book_document" class="form-select">
+                    <option selected disabled>Select a Document</option>
+                    <?php
+                    $db = new Database();
+                    $connection = $db->connect();
 
-                            foreach ($documents as $doc) {
-                                $documentType = htmlspecialchars($doc['document_type']);
-                                echo '<option value="' . $documentType . '">' . $documentType . '</option>';
-                            }
-                            ?>
-                        </select>
+                    $query = "SELECT DISTINCT document FROM services WHERE status = 'Available'"; // Include status condition
+                    $result = $connection->query($query);
 
+                    if ($result) {
+                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                            $document = $row['document'];
+                            echo '<option value="' . $document . '">' . $document . '</option>';
+                        }
+                    } else {
+                        echo "Error fetching services: " . $connection->errorInfo()[2];
+                    }
+                    ?>
+                    </select>
                     </div>
                     <div class="col-md-6">
                         <label for="price">Price</label>
@@ -160,37 +175,20 @@
         </div>
     </main>
 
-    <script>
-        function fetchPrice() {
-            var documentType = document.getElementById('documentSelect').value;
+<script>
+    document.getElementById('book_document').addEventListener('change', fetchPrice);
 
-            if (!documentType || documentType === "Choose a document to request") {
-                document.getElementById('price').value = "Please select a valid document.";
-                return;
+    function fetchPrice() {
+        var documentName = document.getElementById('book_document').value;
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                document.getElementById('price').value = xhr.responseText;
             }
+        };
+        xhr.open('GET', '<?= ROOT ?>/Books/getPrice?service=' + encodeURIComponent(documentName), true);
+        xhr.send();
+    }
+</script>
 
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        var response = xhr.responseText.trim(); // Remove extra whitespace
-                        if (!isNaN(response)) {
-                            document.getElementById('price').value = response; // Set the price
-                        } else {
-                            document.getElementById('price').value = "Error: " + response; // Show error message
-                        }
-                    } else {
-                        console.error("Error fetching price:", xhr.status, xhr.statusText);
-                        document.getElementById('price').value = "Error fetching price.";
-                    }
-                }
-            };
-
-            // MVC endpoint for fetching price by document type
-            var url = '/Requests/getPriceByDocumentType?document_type=' + encodeURIComponent(documentType);
-            xhr.open('GET', url, true);
-            xhr.send();
-        }
-    </script>
-
-    <?php include PATH . "/partials/footer.php" ?>
+<?php include PATH . "partials/footer.php" ?>

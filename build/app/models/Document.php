@@ -2,5 +2,4 @@
 
 class Document extends Model
 {
-
 }

@@ -1,5 +1,4 @@
 <?php include PATH . "/partials/sidenav.php" ?>
-<link rel="stylesheet" href="<?= ROOT ?>/assets/css/history.css">
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="side-content">
@@ -12,13 +11,13 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="<?= ROOT ?>/dashboard">
+                        <a href="<?= ROOT ?>/dashboard" class="active">
                             <span class="las la-home"></span>
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
-                    <a href="<?= ROOT ?>/requests/request">
+                        <a href="<?= ROOT ?>/requests/request">
                             <span class="las la-file-alt"></span>
                             <small>Request a Document</small>
                         </a>
@@ -35,7 +34,7 @@
                             <small>Payment History</small>
                         </a>
                     <li>
-                        <a href="<?= ROOT ?>/history" class="active">
+                        <a href="<?= ROOT ?>/history">
                             <span class="las la-history"></span>
                             <small>Request History</small>
                         </a>
@@ -56,7 +55,8 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- Main Content -->
     <div class="main-content">
         <header>
             <div class="header-content">
@@ -77,13 +77,44 @@
         </header>
         <main>
             <div class="page-header">
-                <h1>Request History</h1>
-                <small>Review all your past document requests, check their status, and access related details.</small>
+                <h1>Dashboard</h1>
+                <small>Welcome back! Here's an overview of your activity.</small>
             </div>
-            <div class="records table-responsive">
+            <div class="page-content">
+                <!-- Analytics Cards -->
+                <div class="analytics">
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>0</h2>
+                            <span class="las la-user-friends"></span>
+                        </div>
+                        <div class="card-progress">
+                            <small>Total Documents Requested</small>
+                            <h6>This is the total number of documents you've requested so far.</h6>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-head">
+                            <h2>0</h2>
+                            <span class="las la-hourglass-half"></span>
+                        </div>
+                        <div class="card-progress">
+                            <small>Total Documents Pending</small>
+                            <h6> Documents that are still being processed or reviewed.</h6>
+                        </div>
+                    </div>
+                    <div class="card2">
+                    <small>Click Below to Get Started on Your Document Request!</small>
+                        <div class="card-head2">
+                            <a href="">Request a Document</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Records Table -->
+                <div class="records table-responsive">
                     <div class="record-header">
                         <div class="add">
-                            <span>History Table</span>
+                            <span>Recent Activity</span>
                         </div>
                         <div class="browse">
                             <input type="search" placeholder="Search" class="record-search">
@@ -94,37 +125,57 @@
                     </div>
                     <div>
                         <table width="100%">
-                        <thead>
+                            <thead>
                                 <tr>
-                                    <th>REQUEST ID</th>
-                                    <th>NAME</th>
-                                    <th>DOCUMENT REQUESTED</th>
-                                    <th>PRICE</th>
-                                    <th>REQUESTED DATE</th>
-                                    <th>STATUS</th>
-                                    <th>ACTIONS</th>
+                                    <th>Document Requested</th>
+                                    <th>Price</th>
+                                    <th>Requested Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>#1</td>
-                                    <td>Noel Christopher Tee</td>
-                                    <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
-                                    <td>Nov 28, 2024</td>
-                                    <td>Waiting for Approval</td>
-                                    <td>
-                                        <div class="actions">
-                                            <span class="lab la-telegram-plane"></span>
-                                            <span class="las la-eye"></span>
-                                            <span class="las la-ellipsis-v"></span>
-                                        </div>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                </div>
             </div>
         </main>
+    </div>
 
 <?php include PATH . "/partials/footer.php" ?>
