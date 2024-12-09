@@ -25,7 +25,7 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="<?= ROOT ?>/admins/dashboard" class="active">
+                        <a href="<?= ROOT ?>/admins/dashboard">
                             <small>Dashboard</small>
                         </a>
                     </li>
@@ -53,7 +53,7 @@
                     </ul>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/documents/doc">
+                        <a href="<?= ROOT ?>/documents/doc" class="active">
                             <small>Document Management</small>
                         </a>
                     </li>

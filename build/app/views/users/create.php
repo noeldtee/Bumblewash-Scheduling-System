@@ -62,6 +62,18 @@
                 </div>
             </div>
 
+            <!-- Section and Student ID Level -->
+            <div class="row g-3 mb-3">
+                <div class="col-md-6 form-floating">
+                    <input name="section" value="<?= get_var('section') ?>" type="text" class="form-control" placeholder="Course">
+                    <label for="Section">Section</label>
+                </div>
+                <div class="col-md-6 form-floating">
+                    <input name="student_id" value="<?= get_var('student_id') ?>" type="text" class="form-control" placeholder="Course">
+                    <label for="Student_ID">Student ID</label>
+                </div>
+            </div>          
+
             <!-- Gender and Birthdate -->
             <div class="row g-3 mb-3">
                 <div class="col-md-6 form-floating">

@@ -25,7 +25,7 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="<?= ROOT ?>/admins/dashboard" class="active">
+                        <a href="<?= ROOT ?>/admins/dashboard">
                             <small>Dashboard</small>
                         </a>
                     </li>
@@ -39,7 +39,7 @@
                             <a href="<?= ROOT ?>/requests/list" class="sidebar-link">All</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/requests/pending" class="sidebar-link">Pending</a>
+                            <a href="<?= ROOT ?>/requests/pending" class="active">Pending</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="<?= ROOT ?>/requests/inprocess" class="sidebar-link">In process</a>
@@ -64,7 +64,7 @@
                         </a>
                         <ul id="payment" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/payments/manage" class="sidebar-link">Payment Logs</a>
+                            <a href="<?= ROOT ?>/payments/manage"  class="sidebar-link">Payment Logs</a>
                         </li>
                         <li class="sidebar-item">
                             <a href="<?= ROOT ?>/payments/setting" class="sidebar-link">Payment Settings</a>

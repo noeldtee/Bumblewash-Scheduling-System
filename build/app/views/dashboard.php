@@ -17,7 +17,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/request">
+                        <a href="<?= ROOT ?>/requests/request">
                             <span class="las la-file-alt"></span>
                             <small>Request a Document</small>
                         </a>
@@ -29,7 +29,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/payment">
+                    <a href="<?= ROOT ?>/payments/payment">
                             <span class="las la-wallet"></span>
                             <small>Payment History</small>
                         </a>
@@ -127,90 +127,48 @@
                         <table width="100%">
                             <thead>
                                 <tr>
-                                    <th>REQUEST ID</th>
-                                    <th>NAME</th>
-                                    <th>DOCUMENT REQUESTED</th>
-                                    <th>PRICE</th>
-                                    <th>REQUESTED DATE</th>
-                                    <th>STATUS</th>
-                                    <th>ACTIONS</th>
+                                    <th>Document Requested</th>
+                                    <th>Price</th>
+                                    <th>Requested Date</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>#1</td>
-                                    <td>Noel Christopher Tee</td>
-                                    <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
-                                    <td>Nov 28, 2024</td>
-                                    <td>Waiting for Approval</td>
-                                    <td>
-                                        <div class="actions">
-                                            <span class="lab la-telegram-plane"></span>
-                                            <span class="las la-eye"></span>
-                                            <span class="las la-ellipsis-v"></span>
-                                        </div>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td>#1</td>
-                                    <td>Noel Christopher Tee</td>
-                                    <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
-                                    <td>Nov 28, 2024</td>
-                                    <td>Waiting for Approval</td>
-                                    <td>
-                                        <div class="actions">
-                                            <span class="lab la-telegram-plane"></span>
-                                            <span class="las la-eye"></span>
-                                            <span class="las la-ellipsis-v"></span>
-                                        </div>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td>#1</td>
-                                    <td>Noel Christopher Tee</td>
-                                    <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
-                                    <td>Nov 28, 2024</td>
-                                    <td>Waiting for Approval</td>
-                                    <td>
-                                        <div class="actions">
-                                            <span class="lab la-telegram-plane"></span>
-                                            <span class="las la-eye"></span>
-                                            <span class="las la-ellipsis-v"></span>
-                                        </div>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td>#1</td>
-                                    <td>Noel Christopher Tee</td>
-                                    <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
-                                    <td>Nov 28, 2024</td>
-                                    <td>Waiting for Approval</td>
-                                    <td>
-                                        <div class="actions">
-                                            <span class="lab la-telegram-plane"></span>
-                                            <span class="las la-eye"></span>
-                                            <span class="las la-ellipsis-v"></span>
-                                        </div>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                                 <tr>
-                                    <td>#1</td>
-                                    <td>Noel Christopher Tee</td>
-                                    <td>Certificate of Enrollment</td>
-                                    <td>₱200</td>
-                                    <td>Nov 28, 2024</td>
-                                    <td>Waiting for Approval</td>
-                                    <td>
-                                        <div class="actions">
-                                            <span class="lab la-telegram-plane"></span>
-                                            <span class="las la-eye"></span>
-                                            <span class="las la-ellipsis-v"></span>
-                                        </div>
-                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </tbody>
                         </table>

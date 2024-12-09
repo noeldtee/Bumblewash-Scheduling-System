@@ -47,7 +47,6 @@
                         Remember me
                     </label>
                 </div>
-                <a href="<?= ROOT ?>/admins/forgot-password" class="text-decoration-none" style="color: #2e7d32;">Forgot Password?</a>
             </div>
 
             <!-- Sign In Button -->

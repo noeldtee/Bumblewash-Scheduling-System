@@ -25,49 +25,49 @@
             <div class="side-menu">
                 <ul class="container">
                     <li>
-                        <a href="<?= ROOT ?>/admins/dashboard" class="active">
+                        <a href="" class="active">
                             <small>Dashboard</small>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                         data-bs-target="#request" aria-expanded="false" aria-controls="auth">
                         <small>Request Management</small>
                         </a>
                         <ul id="request" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/requests/list" class="sidebar-link">All</a>
+                            <a href="" class="sidebar-link">All</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/requests/pending" class="sidebar-link">Pending</a>
+                            <a href="" class="sidebar-link">Pending</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/requests/inprocess" class="sidebar-link">In process</a>
+                            <a href="#" class="sidebar-link">In process</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/requests/completed" class="sidebar-link">Completed</a>
+                            <a href="#" class="sidebar-link">Completed</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/requests/rejected" class="sidebar-link">Rejected</a>
+                            <a href="#" class="sidebar-link">Rejected</a>
                         </li>
                     </ul>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/documents/doc">
+                        <a href="">
                             <small>Document Management</small>
                         </a>
                     </li>
                     <li>
-                        <a href="" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
                         data-bs-target="#payment" aria-expanded="false" aria-controls="auth">
                         <small>Payment Management</small>
                         </a>
                         <ul id="payment" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/payments/manage" class="sidebar-link">Payment Logs</a>
+                            <a href="<?= ROOT ?>/track" class="sidebar-link">Payment Logs</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/payments/setting" class="sidebar-link">Payment Settings</a>
+                            <a href="#" class="sidebar-link">Payment Settings</a>
                         </li>
                     </ul>
                     </li>
@@ -78,10 +78,10 @@
                         </a>
                         <ul id="user" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/users/student" class="sidebar-link">Student</a>
+                            <a href="<?= ROOT ?>/track" class="sidebar-link">Student</a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="<?= ROOT ?>/users/admin" class="sidebar-link">Admin</a>
+                            <a href="#" class="sidebar-link">Admin</a>
                         </li>
                     </ul>
                     </li>
@@ -178,16 +178,35 @@
                         <table width="100%">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
+                                    <th>Request ID</th>
+                                    <th>Student Name</th>
+                                    <th>Document Type</th>
+                                    <th>Requested Date</th>
+                                    <th>Action</th>
+                                </tr>       
                             </thead>
                             <tbody>
+                                <?php if (!empty($requests)) { ?>
+                                    <?php foreach ($requests as $item) { ?>
+                                        <tr>
+                                            <td><?= $item->request_id ?></td> <!-- Request ID -->
+                                            <td><?= $item->lastname ?>, <?= $item->firstname ?></td> <!-- Student Name -->
+                                            <td><?= $item->document_type ?></td> <!-- Document Type -->
+                                            <td><?= $item->status ?></td> <!-- Request Status -->
+                                            <td>
+                                                <a href="<?= ROOT ?>/requests/edit/<?= $item->request_id ?>" class="btn btn-success btn-sm">Edit</a>
+                                                <a href="<?= ROOT ?>/requests/delete/<?= $item->request_id ?>" class="btn btn-danger btn-sm">Delete</a>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <tr>
+                                        <td colspan="5">
+                                            <h3>No records found.</h3>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
                         </table>
                     </div>
                 </div>

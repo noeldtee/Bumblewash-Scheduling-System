@@ -18,7 +18,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/request">
+                    <a href="<?= ROOT ?>/requests/request">
                             <span class="las la-file-alt"></span>
                             <small>Request a Document</small>
                         </a>
@@ -30,7 +30,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/payment" class="active">
+                        <a href="<?= ROOT ?>/payments/payment" class="active">
                             <span class="las la-wallet"></span>
                             <small>Payment History</small>
                         </a>

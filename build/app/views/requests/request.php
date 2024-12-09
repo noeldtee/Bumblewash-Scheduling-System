@@ -31,7 +31,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/payment">
+                        <a href="<?= ROOT ?>/payments/payment">
                             <span class="las la-wallet"></span>
                             <small>Payment History</small>
                         </a>
@@ -77,84 +77,60 @@
             </div>
         </header>
         <main>
+            <?php if (!empty($errors)): ?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <?php foreach ($errors as $error): ?>
+                        <?= $error . "<br>" ?>
+                    <?php endforeach; ?>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            <?php endif; ?>
             <div class="page-header">
                 <h1>Request Document</h1>
                 <small>Fill out the form below to request your document</small>
             </div>
             <div class="page-content">
                 <!-- Request Form -->
-                <form action="submit-request.php" method="POST" class="form-container">
+                <form action="<?= ROOT ?>/requests/request" method="POST" class="form-container">
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label for="student-name" class="form-label">First Name</label>
-                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->student_firstname ?>" class="form-control" readonly>
+                            <label class="form-label">First Name</label>
+                            <input type="text" name="student_firstname" value="<?= $_SESSION['USER']->student_firstname ?>" class="form-control" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label for="student-number" class="form-label">Last Name</label>
-                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->student_lastname ?>" class="form-control" readonly>
-                        </div>
-                    </div>
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <label for="student-name" class="form-label">Email</label>
-                            <input type="text" id="student-name" value="<?= $_SESSION['USER']->student_email ?>" class="form-control" readonly>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="student-number" class="form-label">Contact Number</label>
-                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->student_number ?>" class="form-control" readonly>
+                            <label class="form-label">Last Name</label>
+                            <input type="text" name="student_lastname" value="<?= $_SESSION['USER']->student_lastname ?>" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label for="student-name" class="form-label">Student ID</label>
-                            <input type="text" id="student-name" value="<?= $_SESSION['USER']->studentid ?>" class="form-control" readonly>
+                            <label class="form-label">Email</label>
+                            <input type="email" name="student_email" value="<?= $_SESSION['USER']->student_email ?>" class="form-control" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label for="student-number" class="form-label">Year Level</label>
-                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->year_level ?>" class="form-control" readonly>
+                            <label class="form-label">Contact Number</label>
+                            <input type="text" name="student_number" value="<?= $_SESSION['USER']->student_number ?>" class="form-control" readonly>
                         </div>
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label for="student-name" class="form-label">Course</label>
-                            <input type="text" id="student-name" value="<?= $_SESSION['USER']->course ?>" class="form-control" readonly>
+                            <label class="form-label">Student ID</label>
+                            <input type="text" value="<?= $_SESSION['USER']->student_id ?>" class="form-control" readonly>
                         </div>
                         <div class="col-md-6">
-                            <label for="student-number" class="form-label">Section</label>
-                            <input type="text" id="student-number" value="<?= $_SESSION['USER']->section ?>" class="form-control" readonly>
+                            <label class="form-label">Year Level</label>
+                            <input type="text" name="year_level" value="<?= $_SESSION['USER']->year_level ?>" class="form-control" readonly>
                         </div>
                     </div>
-
-                    <div id="document-requests-container">
-                        <!-- Document Request (First Row) -->
-                        <div class="row g-3 mb-3 document-request">
-                            <div class="col-md-6">
-                                <label for="document-type" class="form-label">Select Document</label>   
-                                <select id="document-type" name="document_type[]" class="form-select" required onchange="updatePrice(this)">
-                                    <option value="">Choose a document</option>
-                                    <!-- Example Options (to be dynamically generated from the backend) -->
-                                    <option value="1">Transcript</option>
-                                    <option value="2">Diploma</option>
-                                    <option value="3">Certificate</option>
-                                </select>
-                            </div>
-                            <div class="col-md-5">
-                                <label for="price" class="form-label">Price</label>
-                                <input type="text" id="price" name="price[]" class="form-control" placeholder="Price will be displayed here" readonly>
-                            </div>
-                            <div class="col-md-1 d-flex align-items-end">
-                                <button type="button" class="btn btn-danger remove-row" onclick="removeRow(this)">Remove</button>
-                            </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Course</label>
+                            <input type="text" name="course" value="<?= $_SESSION['USER']->course ?>" class="form-control" readonly>
                         </div>
-                    </div>
-                    <!-- Button to Add More Rows -->
-                    <div class="mb-3">
-                        <button type="button" class="btn btn-success" onclick="addRow()">Add More</button>
-                    </div>
-
-                    <div id="purpose" class="col-md">
-                            <label class="form-label">Purpose for Requesting</label>
-                            <textarea class="form-control" aria-label="With textarea" fixed></textarea>
+                        <div class="col-md-6">
+                            <label class="form-label">Section</label>
+                            <input type="text" name="section" value="<?= $_SESSION['USER']->section ?>" class="form-control" readonly>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit Request</button>
                 </form>

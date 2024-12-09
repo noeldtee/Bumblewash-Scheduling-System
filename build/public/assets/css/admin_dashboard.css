@@ -31,6 +31,7 @@
     background: #f6f6f6;
     transition: left 300ms;
     text-align: center;
+    overflow-y: scroll;
 }
 
 .side-header {
@@ -131,6 +132,11 @@
 
 .side-menu a small {
     font-size: 12px;
+}
+
+.sidebar-link{
+    color: black;
+    font-size: small;
 }
 
 .logout {
@@ -301,17 +307,14 @@ main {
 }
 
 .page-header {
-    padding: 2rem 2rem;
-    background: #d9e8cb;
-    border: 1px solid black;
-    border-radius: 30px;
-    margin: 0rem 1rem
+    margin: 0rem 2rem;
 }
 
-.page-header h1{
+.page-header span{
     color: #000000;
     font-size: 1.5rem;
     font-weight: bold;
+    background: #c1efa4;
 }
 
 .page-header small {
@@ -327,7 +330,7 @@ main {
 
 .analytics {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-gap: 2rem;
     margin-top: .5rem;
     margin-bottom: 1rem;
@@ -335,14 +338,8 @@ main {
 
 .card {
     border: 1px solid black;
-    background: #d9e8cb;
-    padding: .8rem 2rem;
-    border-radius: 15px;
-}
-.card2 {
-    border: 1px solid black;
     background: #fff;
-    padding: 1rem 2rem;
+    padding: .8rem 2rem;
     border-radius: 15px;
 }
 
@@ -367,37 +364,7 @@ main {
     color: black;
     font-size: .9rem;
     font-weight: 600;
-}
-.card-progress h6 {
-    color: black;
-    font-size: .8rem;
-    font-weight: 400;
-}
-
-.card-head2 {
-    display: flex;
-    justify-content: center;
-    margin-top: 5px;
-}
-
-.card-head2 a {
-    text-align: center;
-    padding: 1rem 1rem;
-    text-decoration: none;
-    color: black;
-    font-size: medium;
-    font-weight: 600px;
-    border: solid black 1px;
-    background: #c1efa4 !important;
-    border-radius: 40px;
-}
-.card-head2 :hover{
-    transform: translateX(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-.card-head2 span {
-    font-size: 3.2rem;
-    color: var(--text-grey);
+    background: #c1efa4;
 }
 
 .records {
@@ -424,11 +391,7 @@ main {
     font-size: .9rem;
     color: #000000;
     font-weight: 600;
-    background: #d9e8cb !important;
-}
-
-input, button, select {
-    outline: none;
+    background: #c1efa4 !important;
 }
 
 .add select, .browse input, .browse select {
@@ -489,6 +452,12 @@ table tbody td {
     color: black;
     font-weight: 600;
     font-size: 0.9rem;
+}
+
+.actions span {
+    display: inline-block;
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
 }
 
 @media only screen and (max-width: 1200px) {
