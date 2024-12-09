@@ -244,7 +244,7 @@ class Admins extends Controller
   }
   
   public function service_add()
-  {
+{
       $errors = [];
       $service = new Service();
   

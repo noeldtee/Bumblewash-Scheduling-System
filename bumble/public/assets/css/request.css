@@ -15,7 +15,7 @@ main .page-content #docs .form-select{
     margin-right: 10px;
 }
 
-.form-container #submit {
+.form-container .submit #button {
     margin-left: 22.5rem;
     width: 40%;
     padding: 10px;
@@ -32,6 +32,8 @@ main .page-content #docs .form-select{
 .form-container #submit:hover {
     background-color: #006a32;
 }
-.form-container button:hover {
+.form-container .submit #button:hover {
     background-color: #006a32;
 }
+
+

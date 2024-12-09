@@ -1,17 +1,37 @@
 <?php include "partials/header.php" ?>
 
-<div class="userlist">
+ <!-- Main Content -->
+ <div class="main-content">
+        <header>
+            <div class="header-content">
+                <label for="menu-toggle" class="toggle">
+                    <span class="las la-bars"></span>
+                </label>
+                <div class="header-menu">
+                    <div class="user">
+                        <h3>Hello! Admin</h3>
+                        <a href="" class="bg-img" style="background-image: url();"></a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+        <div class="page-header">
+                <span>User Management</span><br>
+                <small>Here you can manage the user!</small>
+            </div>
+            <div class="page-content">
 
-  <div class="mt-5 d-flex justify-content-between align-items-center">
-    <h2>List of Users</h2>
+            <div class="mt-1 d-flex justify-content-between align-items-center">
+    <h3>User List</h3>
+    <div class="float-end d-flex">
     <form class="d-flex" role="search" method="GET" action="<?= ROOT ?>/admins/user_list">
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
       <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
-
-    <a href="<?= ROOT ?>/admins/create" class="btn btn-primary">Add New</a>
+    <a href="<?= ROOT ?>/admins/create" class="btn btn-primary" style="margin-left: 2rem;">Add New</a>
+    </div>
   </div>
-
   <table class="table table-striped mt-3">
     <tr>
       <th>Student ID</th>

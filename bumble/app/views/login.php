@@ -14,7 +14,7 @@
     <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px; background-color: white; border-radius: 10px;">
         <div class="text-center mb-4">
             <img src="<?= ROOT ?>/assets/images/logo.png" alt="Logo" width="80" height="76">
-            <h5 class="mt-3" style="color: #2e7d32;">Smart Document Request System</h5>
+            <h5 class="mt-3" style="color: #2e7d32;">BPC Document Request System</h5>
         </div>
         <form method="POST" action="<?= ROOT ?>/login">
             <!-- Display Error Messages -->

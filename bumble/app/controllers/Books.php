@@ -15,6 +15,7 @@ class Books extends Controller
             if ($book->validate($_POST)) {
                 // Consolidate all data into a single array
                 $data = [
+                    'student_id' => $_POST['student_id'] ?? null,
                     'book_fname' => $_POST['book_fname'] ?? null,
                     'book_lname' => $_POST['book_lname'] ?? null,
                     'book_email' => $_POST['book_email'] ?? null,
@@ -26,7 +27,6 @@ class Books extends Controller
                     'purpose' => $_POST['purpose'] ?? null, // Add default value if missing
                     'book_document' => implode(',', $_POST['book_document'] ?? []),
                     'price' => array_sum($_POST['price'] ?? []),
-                    'book_date' => date('Y-m-d'),
                 ];
         
                 $book->insert($data);

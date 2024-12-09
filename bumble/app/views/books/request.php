@@ -177,11 +177,11 @@
                             <label class="form-check-label" href="terms_and_conditions.html" for="invalidCheck">
                                 Agree to terms and conditions
                             </label>
-                            <div class="invalid-feedback">
-                                You must agree before submitting.
-                            </div>
                         </div>
-                        <input type="submit" value="Book Now" class="submit">
+                        <div class="submit">
+                        <input type="submit" value="Book Now" id="button">
+                        </div>
+
                     </div>
                 </div>
         </div>
