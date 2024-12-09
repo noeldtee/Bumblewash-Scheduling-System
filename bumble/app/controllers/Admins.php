@@ -45,7 +45,7 @@ class Admins extends Controller
 
         $searchQuery = $_GET['search'];
 
-        $searchResults = $userModel->search('username', $searchQuery);
+        $searchResults = $userModel->search('student_firstname', $searchQuery);
 
         $this->view('admins/user_list', [
             'users' => $searchResults
@@ -73,46 +73,6 @@ class Admins extends Controller
   
     $this->view('admins/user_delete', [
     'user' => $row
-    ]);
-  }
-  public function message_list()
-  {
-
-    $messageModel = new Message();
-
-    if (isset($_GET['search']) && !empty($_GET['search'])) {
-
-        $searchQuery = $_GET['search'];
-
-        $searchResults = $messageModel->search('username', $searchQuery);
-
-        $this->view('admins/message_list', [
-            'messages' => $searchResults
-        ]);
-    } else {
-        $allMessages = $messageModel->findAll();
-
-        $this->view('admins/message_list', [
-            'messages' => $allMessages
-        ]);
-    }
-  }
-  public function message_delete($id)
-  {
-  
-    $x = new Message();
-    $arr['id'] = $id;
-    $row = $x->first($arr);
-  
-    if (count($_POST) > 0) {
-  
-    $x->delete($id);
-  
-    redirect('admins');
-    }
-  
-    $this->view('admins/message_delete', [
-    'message' => $row
     ]);
   }
   public function booking_list()
@@ -269,7 +229,7 @@ class Admins extends Controller
 
         $searchQuery = $_GET['search'];
 
-        $searchResults = $serviceModel->search('service', $searchQuery);
+        $searchResults = $serviceModel->search('document', $searchQuery);
 
         $this->view('admins/service', [
             'services' => $searchResults
@@ -285,8 +245,6 @@ class Admins extends Controller
   
   public function service_add()
   {
-
-  
       $errors = [];
       $service = new Service();
   

@@ -6,12 +6,8 @@
     <h2>Delete Service</h2>
 
     <div class="mb-2">
-      <label for="">Service</label>
-      <input name="service" disabled value="<?= $service->service ?>" type="text" class="form-control">
-    </div>
-    <div class="mb-2">
-      <label for="">Vehicle</label>
-      <input name="vehicle" disabled value="<?= $service->vehicle ?>" type="text" class="form-control">
+      <label for="">Document</label>
+      <input name="document" disabled value="<?= $service->document ?>" type="text" class="form-control">
     </div>
     <div class="mb-2">
       <label for="">Price</label>

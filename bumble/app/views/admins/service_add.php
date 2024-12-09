@@ -23,18 +23,14 @@
         <div class="mb-2">
             <label for="">Status</label>
             <select name="status" class="form-control">
-                <option value="">Service Status</option>
+                <option selected disabled>Service Status</option>
                 <option <?= get_select('status', 'Available') ?> value="Available">Available</option>
                 <option <?= get_select('status', 'Not Available') ?> value="Not Available">Not Available</option>
             </select>
         </div>
         <div class="mb-2">
             <label for="">Service</label>
-            <input name="service" value="<?= get_var('service') ?>" type="text" class="form-control">
-        </div>
-        <div class="mb-2">
-            <label for="">Vehicle Type</label>
-            <input name="vehicle" value="<?= get_var('vehicle') ?>" type="text" class="form-control">
+            <input name="document" value="<?= get_var('document') ?>" type="text" class="form-control">
         </div>
         <div class="mb-2">
             <label for="Price">Price</label>

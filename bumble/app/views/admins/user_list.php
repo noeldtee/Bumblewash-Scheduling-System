@@ -14,21 +14,27 @@
 
   <table class="table table-striped mt-3">
     <tr>
-      <th>Username</th>
+      <th>Student ID</th>
       <th>First Name</th>
       <th>Last Name</th>
       <th>Email</th>
       <th>Phone Number</th>
-      <th></th>
+      <th>Course</th>
+      <th>Year</th>
+      <th>Section</th>
+      <th>Action</th>
     </tr>
     <?php if ($users != null) { ?>
       <?php foreach ($users as $item) { ?>
         <tr>
-          <td><?= $item->username ?></td>
-          <td><?= $item->firstname ?></td>
-          <td><?= $item->lastname ?></td>
-          <td><?= $item->email ?></td>
-          <td><?= $item->number ?></td>
+          <td><?= $item->student_id ?></td>
+          <td><?= $item->student_firstname ?></td>
+          <td><?= $item->student_lastname ?></td>
+          <td><?= $item->student_email ?></td>
+          <td><?= $item->student_number ?></td>
+          <td><?= $item->course ?></td>
+          <td><?= $item->year_level ?></td>
+          <td><?= $item->section ?></td>
           <td>
             <a href="<?= ROOT ?>/admins/user_delete/<?= $item->id ?>" class="btn btn-danger btn-sm">Delete</a>
           </td>

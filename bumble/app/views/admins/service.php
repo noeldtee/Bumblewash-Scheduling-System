@@ -3,7 +3,7 @@
 <div class="userlist">
 
   <div class="mt-5 d-flex justify-content-between align-items-center">
-    <h2>Services</h2>
+    <h2>Documents Management</h2>
     <form class="d-flex" role="search" method="GET" action="<?= ROOT ?>/admins/service">
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
       <button class="btn btn-outline-dark" type="submit">Search</button>
@@ -14,17 +14,15 @@
 
   <table class="table table-striped mt-3">
     <tr>
-      <th>Service</th>
-      <th>Vehicle</th>
+      <th>Document</th>
       <th>Price</th>
       <th>Status</th>
-      <th></th>
+      <th>Action</th>
     </tr>
     <?php if ($services != null) { ?>
       <?php foreach ($services as $item) { ?>
         <tr>
-          <td><?= $item->service ?></td>
-          <td><?= $item->vehicle ?></td>
+          <td><?= $item->document ?></td>
           <td><?= $item->price ?></td>
           <td><?= $item->status ?></td>
           <td>
