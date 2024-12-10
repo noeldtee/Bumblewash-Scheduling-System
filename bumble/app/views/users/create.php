@@ -30,7 +30,7 @@
 
             <!-- Default Profile -->
             <div>
-                    <input type="hidden" name="student_profile" value="<?=ROOT ?>/assets/images/default_profile.png">
+                <input type="hidden" name="student_profile" value="<?=ROOT ?>/assets/images/default_profile.png">
             </div>
 
             <!-- Name Row -->

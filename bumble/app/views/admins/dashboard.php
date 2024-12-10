@@ -1,5 +1,6 @@
 <?php include "partials/header.php" ?>
 <!-- Main Content -->
+<!-- Main Content -->
 <div class="main-content">
   <header>
     <div class="header-content">
@@ -7,6 +8,28 @@
         <span class="las la-bars"></span>
       </label>
       <div class="header-menu">
+        <form class="d-flex position-relative" role="search" method="GET" action="<?= ROOT ?>/admins/dashboard" id="searchForm">
+          <div class="position-relative">
+            <input
+              class="form-control me-2" style="width: 30rem;"
+              type="search"
+              placeholder="Search"
+              aria-label="Search"
+              name="search"
+              value="<?= htmlspecialchars($_GET['search'] ?? '') ?>"
+              id="searchInput">
+            <!-- Clear Button -->
+            <button
+              type="button"
+              class="btn position-absolute top-50 translate-middle-y end-0"
+              aria-label="Clear search"
+              onclick="clearSearchAndSubmit()"
+              style="background: none; border: none; font-size: 1.5rem; color: #6c757d; cursor: pointer; margin-right: .6rem; margin-top: 2px;">
+              &times;
+            </button>
+          </div>
+          <button class="btn btn-outline-dark ms-2" style="margin-right: 2rem;" type="submit">Search</button>
+        </form>
         <div class="user">
           <h3>Hello! Admin</h3>
           <a href="" class="bg-img" style="background-image: url();"></a>
@@ -24,29 +47,55 @@
       <div class="analytics">
         <div class="card">
           <div class="card-head">
-            <h2><?= $data['totalRequested'] ?? 0; ?></h2>
-            <span class="las la-user-friends"></span>
+            <h2><?= $data['totalStudents'] ?? 0 ?></h2>
+            <i class="fa-solid fa-user" style="font-size: 30px;"></i>
           </div>
           <div class="card-progress">
-            <small>Total Documents Requested</small>
-            <h6>This is the total number of documents you've requested so far.</h6>
+            <small>Total Students</small>
           </div>
         </div>
         <div class="card">
           <div class="card-head">
-            <h2><?= $data['totalPending'] ?? 0; ?></h2>
-            <span class="las la-hourglass-half"></span>
+            <h2><?= $data['totalRequests'] ?? 0 ?></h2>
+            <i class="fa-solid fa-folder-open" style="font-size: 30px;"></i>
           </div>
           <div class="card-progress">
-            <small>Total Documents Pending</small>
-            <h6>Documents that are still being processed or reviewed.</h6>
+            <small>Total Requests</small>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h2><?= $data['totalPending'] ?? 0 ?></h2>
+            <i class="fa-solid fa-hourglass-half" style="font-size: 30px;"></i>
+          </div>
+          <div class="card-progress">
+            <small>Total Pending</small>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h2><?= $data['totalInProcess'] ?? 0 ?></h2>
+            <i class="fa-solid fa-print" style="font-size: 30px;"></i>
+          </div>
+          <div class="card-progress">
+            <small>Total In Process</small>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <h2><?= $data['readyToPickup'] ?? 0 ?></h2>
+            <i class="fa-solid fa-file-circle-check" style="font-size: 30px;"></i>
+          </div>
+          <div class="card-progress">
+            <small>Ready to Pickup</small>
           </div>
         </div>
       </div>
+      <!-- Records Table -->
       <div class="records table-responsive">
         <div class="record-header">
           <div class="add">
-            <span>Recent Activity</span>
+            <span>Most Recent Requested</span>
           </div>
         </div>
         <div>
@@ -54,6 +103,7 @@
             <thead>
               <tr>
                 <th>Document Requested</th>
+                <th>Student Name</th>
                 <th>Price</th>
                 <th>Requested Date</th>
                 <th>Status</th>
@@ -64,10 +114,11 @@
               <?php if (!empty($data['recentActivities'])): ?>
                 <?php foreach ($data['recentActivities'] as $activity): ?>
                   <tr>
-                    <td><?= htmlspecialchars($activity->document_name); ?></td>
+                    <td><?php echo str_replace(',', ', ', htmlspecialchars($activity->book_document)); ?></td>
+                    <td><?= htmlspecialchars($activity->book_lname) . ', ' . htmlspecialchars($activity->book_fname); ?></td>
                     <td><?= htmlspecialchars($activity->price); ?></td>
-                    <td><?= htmlspecialchars(date('Y-m-d', strtotime($activity->requested_date))); ?></td>
-                    <td><?= htmlspecialchars(ucfirst($activity->status)); ?></td>
+                    <td><?= htmlspecialchars(date('Y-m-d', strtotime($activity->created_at))); ?></td>
+                    <td><?= htmlspecialchars(ucfirst($activity->book_status)); ?></td>
                     <td>
                       <a href="<?= ROOT ?>/documents/view/<?= $activity->id; ?>">View</a>
                     </td>
@@ -85,5 +136,17 @@
     </div>
   </main>
 </div>
+<script>
+      function clearSearchAndSubmit() {
+        const searchInput = document.getElementById('searchInput');
+        const searchForm = document.getElementById('searchForm');
+
+        // Clear the search input value
+        searchInput.value = '';
+
+        // Submit the form to refresh the table with no search filter
+        searchForm.submit();
+      }
+    </script>
 
 <?php include PATH . "/partials/footer.php" ?>

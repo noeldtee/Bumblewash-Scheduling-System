@@ -105,6 +105,7 @@
                         <input type="hidden" name="book_lname" value="<?= $_SESSION['USER']->student_lastname ?>">
                     </div>
                 </div>
+                <input name="student_birthdate" value="<?= $_SESSION['USER']->student_birthdate ?>" type="hidden">
                 <div class="row g-3 mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Email</label>

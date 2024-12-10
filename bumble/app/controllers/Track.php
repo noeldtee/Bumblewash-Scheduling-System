@@ -15,9 +15,12 @@ class Track extends Controller
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
 
         // Prepare the base SQL query
-        $sql = "SELECT book_document, created_at, book_status, pickup_date, payment_status 
-                FROM books 
-                WHERE student_id = :student_id";
+        $sql = "SELECT book_document, created_at, book_status, pickup_date, payment_status, 
+        book_fname, book_lname, book_email, book_number, 
+        student_birthdate, student_id, year_level, course, section, 
+        price, purpose
+ FROM books 
+ WHERE student_id = :student_id";
 
         // If a search term is provided, append a WHERE condition
         if (!empty($searchQuery)) {
