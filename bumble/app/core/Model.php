@@ -2,118 +2,119 @@
 
 class Model extends Database
 {
-  public $errors = [];
+    public $errors = [];
+    protected $db;
 
-  public function __construct()
-  {
-    if (!property_exists($this, 'table')) {
-
-      $this->table = strtolower($this::class) . 's';
-    }
-  }
-
-  public function findAll()
-  {
-    $query = "select * from $this->table";
-    $result = $this->query($query);
-
-    if ($result) {
-      return $result;
-    }
-    return false;
-  }
-
-  public function where($data, $data_not = [])
-  {
-    $keys = array_keys($data);
-    $keys_not = array_keys($data_not);
-
-    $query = "select * from $this->table where ";
-
-    foreach ($keys as $key) {
-      $query .= $key . " = :" . $key . " && ";
+    public function __construct()
+    {
+        // Ensure the database connection is initialized
+        $this->db = $this->connect();
+        
+        if (!property_exists($this, 'table')) {
+            $this->table = strtolower($this::class) . 's'; // Set table name dynamically
+        }
     }
 
-    foreach ($keys_not as $key) {
-      $query .= $key . " != :" . $key . " && ";
+    public function query($query, $data = [])
+    {
+        $stm = $this->db->prepare($query);
+        $check = $stm->execute($data);
+
+        if ($check) {
+            $result = $stm->fetchAll(PDO::FETCH_OBJ);
+
+            if (is_array($result) && count($result) > 0) {
+                return $result;
+            }
+        }
+        return false;
     }
 
-    $query = trim($query, " && ");
-
-    $data = array_merge($data, $data_not);
-    $result = $this->query($query, $data);
-
-    if ($result) {
-      return $result;
-    }
-    return false;
-  }
-
-  public function first($data, $data_not = [])
-  {
-    $keys = array_keys($data);
-    $keys_not = array_keys($data_not);
-
-    $query = "select * from $this->table where ";
-
-    foreach ($keys as $key) {
-      $query .= $key . " = :" . $key . " && ";
+    public function findAll()
+    {
+        $query = "SELECT * FROM $this->table";
+        return $this->query($query);
     }
 
-    foreach ($keys_not as $key) {
-      $query .= $key . " != :" . $key . " && ";
+    public function where($data, $data_not = [])
+    {
+        $keys = array_keys($data);
+        $keys_not = array_keys($data_not);
+
+        $query = "SELECT * FROM $this->table WHERE ";
+
+        foreach ($keys as $key) {
+            $query .= "$key = :$key AND ";
+        }
+
+        foreach ($keys_not as $key) {
+            $query .= "$key != :$key AND ";
+        }
+
+        $query = trim($query, " AND ");
+        $data = array_merge($data, $data_not);
+
+        return $this->query($query, $data);
     }
 
-    $query = trim($query, " && ");
+    public function first($data, $data_not = [])
+    {
+        $keys = array_keys($data);
+        $keys_not = array_keys($data_not);
 
-    $data = array_merge($data, $data_not);
-    $result = $this->query($query, $data);
+        $query = "SELECT * FROM $this->table WHERE ";
 
-    if ($result) {
-      return $result[0];
-    }
-    return false;
-  }
+        foreach ($keys as $key) {
+            $query .= "$key = :$key AND ";
+        }
 
-  public function insert($data)
-  {
-    $columns = implode(', ', array_keys($data));
-    $values = implode(', :', array_keys($data));
-    $query = "insert into $this->table ($columns) values (:$values)";
+        foreach ($keys_not as $key) {
+            $query .= "$key != :$key AND ";
+        }
 
-    $this->query($query, $data);
+        $query = trim($query, " AND ");
+        $data = array_merge($data, $data_not);
 
-    return false;
-  }
+        $result = $this->query($query, $data);
 
-  public function update($id, $data, $column = 'id')
-  {
-    $keys = array_keys($data);
-    $query = "update $this->table set ";
-
-    foreach ($keys as $key) {
-      $query .= $key . " = :" . $key . ", ";
+        if ($result) {
+            return $result[0]; // Return the first row if found
+        }
+        return false;
     }
 
-    $query = trim($query, ", ");
+    public function insert($data)
+    {
+        $columns = implode(', ', array_keys($data));
+        $values = implode(', :', array_keys($data));
+        $query = "INSERT INTO $this->table ($columns) VALUES (:$values)";
 
-    $query .= " where $column = :$column";
+        $this->query($query, $data);
+    }
 
-    $data[$column] = $id;
-    $this->query($query, $data);
+    public function update($id, $data, $column = 'id')
+    {
+        $keys = array_keys($data);
+        $query = "UPDATE $this->table SET ";
 
-    return false;
-  }
+        foreach ($keys as $key) {
+            $query .= "$key = :$key, ";
+        }
 
-  public function delete($id, $column = 'id')
-  {
-    $data[$column] = $id;
-    $query = "delete from $this->table where $column = :$column";
+        $query = trim($query, ", ");
+        $query .= " WHERE $column = :$column";
 
-    $this->query($query, $data);
+        $data[$column] = $id;
+        $this->query($query, $data);
+    }
 
-    return false;
-  }
+    public function delete($id, $column = 'id')
+    {
+        $data[$column] = $id;
+        $query = "DELETE FROM $this->table WHERE $column = :$column";
+        $this->query($query, $data);
+    }
+
 
   public function findByRoles(array $roles)
   {

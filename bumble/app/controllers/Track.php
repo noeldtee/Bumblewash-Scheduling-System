@@ -19,8 +19,8 @@ class Track extends Controller
         book_fname, book_lname, book_email, book_number, 
         student_birthdate, student_id, year_level, course, section, 
         price, purpose
- FROM books 
- WHERE student_id = :student_id";
+        FROM books 
+            WHERE student_id = :student_id";
 
         // If a search term is provided, append a WHERE condition
         if (!empty($searchQuery)) {

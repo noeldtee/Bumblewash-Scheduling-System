@@ -8,10 +8,14 @@ class Books extends Controller
             redirect('login');
         }
 
+        $errors = [];
+        $showSuccessModal = false;
+        $showErrorModal = false;
+        $errorMessage = ''; 
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $errors = [];
             $book = new Book();
-        
+
             if ($book->validate($_POST)) {
                 // Consolidate all data into a single array
                 $data = [
@@ -20,26 +24,41 @@ class Books extends Controller
                     'book_lname' => $_POST['book_lname'] ?? null,
                     'book_email' => $_POST['book_email'] ?? null,
                     'book_number' => $_POST['book_number'] ?? null,
-                    'student_birthdate' => $_POST['student_birthdate'] ?? null, // Add default value if missing
+                    'student_birthdate' => $_POST['student_birthdate'] ?? null,
                     'course' => $_POST['course'] ?? null,
                     'section' => $_POST['section'] ?? null,
                     'year_level' => $_POST['year_level'] ?? null,
-                    'purpose' => $_POST['purpose'] ?? null, // Add default value if missing
+                    'purpose' => $_POST['purpose'] ?? null,
                     'book_document' => implode(',', $_POST['book_document'] ?? []),
                     'price' => array_sum($_POST['price'] ?? []),
+                    'book_status' => 'pending'  // Initial request status
                 ];
-        
-                $book->insert($data);
-                redirect('dashboard');
+
+                // Attempt to insert the data into the database
+                if ($book->insert($data)) {
+                    // Data insertion successful, show success modal
+                    $showSuccessModal = true;
+                } else {
+                    // Data insertion failed, set error message and show error modal
+                    $showSuccessModal = true;
+                }
+
             } else {
-                $errors = $book->errors; // Pass validation errors to the view
+                // Form validation failed
+                $errors = $book->errors;
+                $showErrorModal = true;
+                $errorMessage = 'There are errors in your form submission. Please correct them.';
             }
         }
-        
+
         $this->view('books/request', [
-            'errors' => $errors
+            'errors' => $errors,
+            'showSuccessModal' => $showSuccessModal,
+            'showErrorModal' => $showErrorModal,
+            'errorMessage' => $errorMessage // Pass this to the view for the error modal
         ]);
     }
+
     public function getPrice()
     {
         $document = $_GET['service']; // Ensure this matches the JavaScript query parameter

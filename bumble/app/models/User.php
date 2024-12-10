@@ -2,7 +2,7 @@
 
 class User extends Model
 {
-    protected $table = 'users'; // Use the updated table name
+    protected $table = 'users';
     public $errors = [];
 
     public function validate($data)
@@ -80,5 +80,20 @@ class User extends Model
 
         // Return validation status
         return empty($this->errors);
+    }
+
+    public function findByStudentId($studentId)
+    {
+        return $this->first(['student_id' => $studentId]);
+    }
+
+    public function findByEmail($email)
+    {
+        return $this->first(['student_email' => $email]);
+    }
+
+    public function findByStudentNumber($studentNumber)
+    {
+        return $this->first(['student_number' => $studentNumber]);
     }
 }

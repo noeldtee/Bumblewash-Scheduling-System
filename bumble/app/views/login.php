@@ -41,17 +41,10 @@
                 <label for="student_password">Password</label>
             </div>
 
-            <!-- Remember Me and Forgot Password -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                    <label class="form-check-label" for="gridCheck">
-                        Remember me
-                    </label>
-                </div>
-                <a href="<?= ROOT ?>/login" class="text-decoration-none" style="color: #2e7d32;">Forgot Password?</a>
-            </div>
-
+            <div class="form-check mb-3">
+    <input class="form-check-input" type="checkbox" id="gridCheck" name="remember_me">
+    <label class="form-check-label" for="gridCheck">Remember Me</label>
+</div>
             <!-- Sign In Button -->
             <button type="submit" class="btn btn-success w-100" style="background-color: #2e7d32; border: none;">Sign In</button>
 

@@ -7,7 +7,7 @@
         <div class="profile">
             <!-- Logo -->
             <div class="profile-img bg-img" style="background-image: url(<?= ROOT ?>/assets/images/logo.png);"></div>
-            <h5>Smart Document Request System</h>
+            <h5>BPC Document Request System</h>
 
         </div>
         <div class="side-menu">
@@ -19,7 +19,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?= ROOT ?>/request" class="active">
+                    <a href="<?= ROOT ?>/books/request" class="active">
                         <span class="las la-file-alt"></span>
                         <small>Request a Document</small>
                     </a>
@@ -30,12 +30,6 @@
                         <small>Track Your Request</small>
                     </a>
                 </li>
-                <li>
-                    <a href="<?= ROOT ?>/payments/payment">
-                        <span class="las la-wallet"></span>
-                        <small>Payment History</small>
-                    </a>
-                <li>
                     <a href="<?= ROOT ?>/history">
                         <span class="las la-history"></span>
                         <small>Request History</small>
@@ -81,14 +75,7 @@
             <h1>Request Document</h1>
             <small>Fill out the form below to request your document</small>
         </div>
-        <?php if (!empty($errors)): ?>
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <?php foreach ($errors as $error): ?>
-                    <?= $error . "<br>" ?>
-                <?php endforeach; ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
+
         <div class="page-content">
             <!-- Request Form -->
             <form action="<?= ROOT ?>/books/request" method="POST" class="form-container">
@@ -180,7 +167,7 @@
                             </label>
                         </div>
                         <div class="submit">
-                        <input type="submit" value="Book Now" id="button">
+                        <input type="submit" value="Proceed to Payment" id="button">
                         </div>
 
                     </div>
@@ -189,14 +176,95 @@
         </form>
 </div>
 
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Request Successful</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Wait for the registrar to approve it.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="modalOkButton" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Registration Failed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?= htmlspecialchars($errorMessage ?? '') ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="successModalLabel">Request Successful</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Wait for the registrar to approve it.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="modalOkButton" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Show success modal
+        <?php if (!empty($showSuccessModal)) : ?>
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+
+            // Redirect after modal confirmation
+            document.getElementById('modalOkButton').addEventListener('click', function () {
+                window.location.href = "<?= ROOT ?>/dashboard"; // Redirect after successful registration
+            });
+        <?php endif; ?>
+
+        // Show error modal
+        <?php if (!empty($showErrorModal)) : ?>
+            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        <?php endif; ?>
+    });
+</script>
+
+
+
+
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const container = document.getElementById('document-container');
 
-    // Event delegation for "Add More" button
+    // Event delegation for "Add More" and "X" buttons
     container.addEventListener('click', function (e) {
         if (e.target && e.target.classList.contains('add-more')) {
             addMoreDocumentDropdown(e.target.closest('.input-group'));
+        } else if (e.target && e.target.classList.contains('remove-row')) {
+            removeDocumentRow(e.target.closest('.input-group'));
         }
     });
 
@@ -236,21 +304,37 @@ document.addEventListener('DOMContentLoaded', function () {
         newPriceInput.readOnly = true;
 
         // "Add More" button
-        const newButton = document.createElement('button');
-        newButton.type = 'button';
-        newButton.classList.add('btn', 'btn-outline-secondary', 'add-more');
-        newButton.textContent = 'Add More';
+        const newAddButton = document.createElement('button');
+        newAddButton.type = 'button';
+        newAddButton.classList.add('btn', 'btn-outline-secondary', 'add-more');
+        newAddButton.textContent = 'Add More';
+
+        // "X" button
+        const removeButton = document.createElement('button');
+        removeButton.type = 'button';
+        removeButton.classList.add('btn', 'btn-outline-danger', 'remove-row');
+        removeButton.textContent = 'X';
 
         // Append elements to the new input group
         newInputGroup.appendChild(newDropdown);
         newInputGroup.appendChild(newPriceInput);
-        newInputGroup.appendChild(newButton);
+        newInputGroup.appendChild(newAddButton);
+        newInputGroup.appendChild(removeButton);
 
         // Insert new group after the current group
         currentGroup.parentNode.insertBefore(newInputGroup, currentGroup.nextSibling);
 
         // Attach event listener to fetch price for the new dropdown
         newDropdown.addEventListener('change', fetchPrice);
+    }
+
+    // Remove a document row
+    function removeDocumentRow(group) {
+        if (container.children.length > 1) {
+            group.remove();
+        } else {
+            alert('At least one document must remain.');
+        }
     }
 
     // Fetch price dynamically when a document is selected
@@ -277,6 +361,7 @@ document.addEventListener('DOMContentLoaded', function () {
         initialDropdown.addEventListener('change', fetchPrice);
     }
 });
+
 </script>
 
 <?php include PATH . "partials/footer.php" ?>

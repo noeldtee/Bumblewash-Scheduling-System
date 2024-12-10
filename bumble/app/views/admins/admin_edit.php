@@ -9,8 +9,9 @@
             <label for="">Role</label>
             <select name="admin_role" class="form-control">
                 <option value="">Select a Role</option>
-                <option <?= $admin->admin_role == 'Admin' ? 'selected' : '' ?> value="Admin">Admin</option>
-                <option <?= $admin->admin_role == 'Staff' ? 'selected' : '' ?> value="Staff">Staff</option>
+                <option <?= $admin->admin_role == 'Registrar' ? 'selected' : '' ?> value="Registrar">Registrar</option>
+                <option <?= $admin->admin_role == 'Cashier' ? 'selected' : '' ?> value="Cashier">Cashier</option>
+                <option <?= $admin->admin_role == 'Super Admin' ? 'selected' : '' ?> value="Super Admin">Super Admin</option>
             </select>
         </div>
 

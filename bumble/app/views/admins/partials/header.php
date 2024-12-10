@@ -12,13 +12,14 @@
 </head>
 
 <body>
+<?php if (!empty($_SESSION['ADMIN'])): ?>
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="side-content">
             <div class="profile">
                 <!-- Logo -->
                 <div class="profile-img bg-img" style="background-image: url(<?= ROOT ?>/assets/images/logo.png);"></div>
-                <h5>Smart Document Request System</h5>
+                <h5>BPC Document Request System</h5>
 
             </div>
             <div class="side-menu">
@@ -42,9 +43,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?= ROOT ?>/admins/dashboard" class="">
+                        <a href="<?= ROOT ?>/admins/request_logs" class="">
                         <i class="fa-solid fa-chart-line"></i>
-                        <small>Payment Management</small>
+                        <small>Request Logs</small>
                         </a>
                     </li>
                     <li>
@@ -60,7 +61,7 @@
                         </a>
                     </li>
                     <li class="logout">
-                        <a href="<?= ROOT ?>/logout">
+                        <a href="<?= ROOT ?>/alogout">
                         <i class="fa-solid fa-right-from-bracket" ></i>
                             <small>Logout</small>
                         </a>
@@ -69,3 +70,4 @@
             </div>
         </div>
     </div>
+    <?php endif; ?>

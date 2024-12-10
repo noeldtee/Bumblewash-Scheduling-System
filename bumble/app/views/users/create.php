@@ -14,7 +14,7 @@
     <div class="card shadow-sm p-3" style=" width: 100%; max-width: 600px; background-color: white; border-radius: 10px; overflow-y: auto;">
         <div class="text-center mb-3">
             <img src="<?= ROOT ?>/assets/images/logo.png" alt="Logo" width="80" height="76">
-            <h5 class="mt-3" style="color: #2e7d32;">Smart Document Request System</h5>
+            <h5 class="mt-3" style="color: #2e7d32;">BPC Document Request System</h5>
         </div>
 
         <!-- Form starts here -->
@@ -149,17 +149,41 @@
         </div>
     </div>
 </div>
+<!-- Error Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="errorModalLabel">Registration Failed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?= htmlspecialchars($errorMessage ?? '') ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        // Show success modal
         <?php if (!empty($showSuccessModal)) : ?>
             const successModal = new bootstrap.Modal(document.getElementById('successModal'));
             successModal.show();
 
             // Redirect after modal confirmation
             document.getElementById('modalOkButton').addEventListener('click', function () {
-                window.location.href = "<?= ROOT ?>/login"; // Redirect to users page
+                window.location.href = "<?= ROOT ?>/login"; // Redirect after successful registration
             });
+        <?php endif; ?>
+
+        // Show error modal
+        <?php if (!empty($showErrorModal)) : ?>
+            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
         <?php endif; ?>
     });
 </script>

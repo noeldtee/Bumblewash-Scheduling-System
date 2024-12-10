@@ -1,10 +1,16 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class Admins extends Controller
 {
 
   public function index()
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
+
       $db = new Database();
       $conn = $db->connect();
 
@@ -33,7 +39,7 @@ class Admins extends Controller
       $totalInProcess = $stmt->fetch(PDO::FETCH_OBJ);
 
       // Fetch total ready to pick up
-      $readyToPickupQuery = "SELECT COUNT(*) AS ready_to_pickup FROM books WHERE book_status = 'ready to pickup'";
+      $readyToPickupQuery = "SELECT COUNT(*) AS ready_to_pickup FROM books WHERE book_status = 'to pickup'";
       $stmt = $conn->prepare($readyToPickupQuery);
       $stmt->execute();
       $readyToPickup = $stmt->fetch(PDO::FETCH_OBJ);
@@ -57,34 +63,46 @@ class Admins extends Controller
 
   public function login()
   {
-    $errors = [];
-    $admin = new Admin();
+      $errors = [];
+      $admin = new Admin();
+      $showSuccessModal = false;  // Initialize flag
   
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      if (isset($_POST['admin_name'])) {
-        $arr['admin_name'] = $_POST['admin_name'];
+      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+          if (isset($_POST['admin_name']) && isset($_POST['admin_password'])) {
+              $arr['admin_name'] = $_POST['admin_name'];
   
-        $row = $admin->first($arr);
+              $row = $admin->first($arr);  // Retrieve the admin data by username
   
-        if ($row) {
-        if (password_verify($_POST['admin_password'], $row->admin_password)) {
-          Admin_Auth::authenticate($row);
-          redirect('admins/dashboard');
-        } else {
-          $errors['errors'] = 'Email or Password is invalid';
-        }
-        } else {
-          $errors['errors'] = 'Email or Password is invalid';
-        }
-        } else {
-          $errors['errors'] = 'Email or Password is invalid';
-        }
-    }
-      $this->view('admins/login', 
-      ['errors' => $errors]);
+              if ($row) {
+                  // Check if the password matches
+                  if (password_verify($_POST['admin_password'], $row->admin_password)) {
+                      Admin_Auth::authenticate($row); // Authenticate admin
+                      // Set flag to true to show modal on successful login
+                      $showSuccessModal = true;
+                      // Do not redirect immediately
+                  } else {
+                      $errors[] = 'Invalid Username or Password'; // Incorrect password
+                  }
+              } else {
+                  $errors[] = 'Invalid Username or Password'; // Username not found
+              }
+          } else {
+              $errors[] = 'Please enter both username and password'; // Missing fields
+          }
+      }
+  
+      // Pass errors to the view and the success flag for modal
+      $this->view('admins/login', [
+          'errors' => $errors,
+          'showSuccessModal' => $showSuccessModal
+      ]);
   }
+
   public function user_list()
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
 
     $userModel = new User();
 
@@ -105,8 +123,13 @@ class Admins extends Controller
         ]);
     }
   }
+
   public function user_delete($id)
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
+
     $x = new User();
     $arr['id'] = $id;
     $row = $x->first($arr);
@@ -122,58 +145,109 @@ class Admins extends Controller
     'user' => $row
     ]);
   }
+
   public function booking_list()
-  {
-      $bookModel = new Book();
-  
-      // Initialize filters
-      $searchQuery = $_GET['search'] ?? '';
-      $filterDate = $_GET['filter_date'] ?? '';
-      $filterStatus = $_GET['filter_status'] ?? '';
-  
-      // Check if search or filters are applied
-      if (!empty($searchQuery) || !empty($filterDate) || !empty($filterStatus)) {
-          // Build the conditions for the query
-          $conditions = [];
-          $params = [];
-  
-          if (!empty($searchQuery)) {
-              $conditions[] = "(book_fname LIKE :search OR student_id LIKE :search)";
-              $params[':search'] = '%' . $searchQuery . '%';
-          }
-  
-          if (!empty($filterDate)) {
-              $conditions[] = "DATE(created_at) = :filter_date";
-              $params[':filter_date'] = $filterDate;
-          }
-  
-          if (!empty($filterStatus)) {
-              $conditions[] = "book_status = :filter_status";
-              $params[':filter_status'] = $filterStatus;
-          }
-  
-          // Combine all conditions
-          $whereClause = implode(' AND ', $conditions);
-  
-          // Fetch filtered results
-          $filteredResults = $bookModel->findWhere($whereClause, $params);
-  
-          // Pass data to the view
-          $this->view('admins/booking_list', [
-              'books' => $filteredResults
-          ]);
-      } else {
-          // Fetch all books if no filters or search
-          $allBooks = $bookModel->findAll();
-  
-          $this->view('admins/booking_list', [
-              'books' => $allBooks
-          ]);
-      }
-  }
+{
+    if (!Admin_Auth::logged_in()) {
+        redirect('admins/login');
+    }
+
+    $bookModel = new Book();
+
+    // Initialize filters
+    $searchQuery = $_GET['search'] ?? '';
+    $filterDate = $_GET['filter_date'] ?? '';
+    $filterStatus = $_GET['filter_status'] ?? '';
+
+    // Build the base condition to exclude completed requests
+    $conditions = ["book_status != 'Completed'"];
+    $params = [];
+
+    // Apply search filter
+    if (!empty($searchQuery)) {
+        $conditions[] = "(book_fname LIKE :search OR student_id LIKE :search)";
+        $params[':search'] = '%' . $searchQuery . '%';
+    }
+
+    // Apply date filter
+    if (!empty($filterDate)) {
+        $conditions[] = "DATE(created_at) = :filter_date";
+        $params[':filter_date'] = $filterDate;
+    }
+
+    // Apply status filter
+    if (!empty($filterStatus)) {
+        $conditions[] = "book_status = :filter_status";
+        $params[':filter_status'] = $filterStatus;
+    }
+
+    // Combine all conditions
+    $whereClause = implode(' AND ', $conditions);
+
+    // Fetch filtered results
+    $filteredResults = $bookModel->findWhere($whereClause, $params);
+
+    // Pass data to the view
+    $this->view('admins/booking_list', [
+        'books' => $filteredResults
+    ]);
+}
+
+
+public function request_logs()
+{
+    if (!Admin_Auth::logged_in()) {
+        redirect('admins/login');
+    }
+
+    $bookModel = new Book();
+
+    // Initialize filters
+    $searchQuery = $_GET['search'] ?? '';
+    $filterDate = $_GET['filter_date'] ?? '';
+    $filterStatus = $_GET['filter_status'] ?? '';
+
+    // Build the base condition to include only Rejected and Completed requests
+    $conditions = ["book_status IN ('Completed', 'Rejected')"];
+    $params = [];
+
+    // Apply search filter
+    if (!empty($searchQuery)) {
+        $conditions[] = "(book_fname LIKE :search OR student_id LIKE :search)";
+        $params[':search'] = '%' . $searchQuery . '%';
+    }
+
+    // Apply date filter
+    if (!empty($filterDate)) {
+        $conditions[] = "DATE(created_at) = :filter_date";
+        $params[':filter_date'] = $filterDate;
+    }
+
+    // Apply status filter (optional, within Rejected and Completed)
+    if (!empty($filterStatus)) {
+        $conditions[] = "book_status = :filter_status";
+        $params[':filter_status'] = $filterStatus;
+    }
+
+    // Combine all conditions
+    $whereClause = implode(' AND ', $conditions);
+
+    // Fetch filtered results
+    $filteredResults = $bookModel->findWhere($whereClause, $params);
+
+    // Pass data to the view
+    $this->view('admins/request_logs', [
+        'books' => $filteredResults
+    ]);
+}
+
 
   public function booking_edit($id)
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
+
   $x = new Book();
   $arr['id'] = $id;
   $row = $x->first($arr);
@@ -190,6 +264,9 @@ class Admins extends Controller
   }
   public function booking_delete($id)
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
 
   
     $x = new Book();
@@ -207,8 +284,12 @@ class Admins extends Controller
     'book' => $row
     ]);
   }
+
   public function admin_list()
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
 
 
     $adminModel = new Admin();
@@ -232,6 +313,9 @@ class Admins extends Controller
   }
   public function admin_create()
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
 
   
     $errors = [];
@@ -256,8 +340,12 @@ class Admins extends Controller
     $this->view('admins/admin_create', 
     ['errors' => $errors]);
   }
+
   public function admin_edit($id)
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
 
   $x = new Admin();
   $arr['id'] = $id;
@@ -274,8 +362,12 @@ class Admins extends Controller
   'admin' => $row
   ]);
   }
+
   public function admin_delete($id)
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
 
     $x = new Admin();
     $arr['id'] = $id;
@@ -292,8 +384,12 @@ class Admins extends Controller
     'admin' => $row
     ]);
   }
+
   public function service()
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
 
     $serviceModel = new Service();
 
@@ -317,6 +413,10 @@ class Admins extends Controller
   
   public function service_add()
 {
+  if (!Admin_Auth::logged_in()) {
+    redirect('admins/login');
+  }
+
       $errors = [];
       $service = new Service();
   
@@ -339,6 +439,9 @@ class Admins extends Controller
 
   public function service_edit($id)
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
 
 
   $x = new Service();
@@ -358,6 +461,9 @@ class Admins extends Controller
 
   public function service_delete($id)
   {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
 
 
     $x = new Service();
@@ -380,19 +486,19 @@ class Admins extends Controller
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $id = $_POST['id'] ?? null;
           $action = $_POST['action'] ?? null;
-  
+
           if ($id && $action) {
               $bookModel = new Book();
               $book = $bookModel->find($id); // This now works correctly.
-  
+
               if ($book) {
                   $newStatus = '';
                   switch ($action) {
                       case 'approve':
-                          $newStatus = 'in_process';
+                          $newStatus = 'in process';
                           break;
-                      case 'to_pickup':
-                          $newStatus = 'to_pickup';
+                      case 'to pickup':
+                          $newStatus = 'to pickup';
                           break;
                       case 'completed':
                           $newStatus = 'completed';
@@ -400,16 +506,21 @@ class Admins extends Controller
                       default:
                           redirect('admins/booking_list', ['error' => 'Invalid status action.']);
                   }
-  
+
                   // Update the status
                   $bookModel->updateStatus($id, $newStatus);
+
+                  // Send email notification
+                  $this->sendEmailNotification($book->book_email, $newStatus);
+
                   redirect('admins/booking_list', ['success' => 'Status updated successfully.']);
               }
           }
-  
+
           redirect('admins/booking_list', ['error' => 'Failed to update status.']);
       }
   }
+
   public function deleteRequest($id)
   {
       // Ensure the ID is valid
@@ -418,14 +529,41 @@ class Admins extends Controller
           header("Location: " . ROOT . "/admins/dashboard");
           return;
       }
-  
+
       // Execute deletion logic
       $db = new Database();
       $query = "DELETE FROM books WHERE id = :id";
       $db->query($query, ['id' => $id]);
-  
+
       // Redirect back to the dashboard
       $_SESSION['success'] = "Request successfully deleted.";
       header("Location: " . ROOT . "/admins/dashboard");
   }
+
+  private function sendEmailNotification($studentEmail, $statusUpdate)
+    {
+        // Create a new PHPMailer instance
+        $mail = new PHPMailer;
+        $mail->isSMTP();                                      // Set mailer to use SMTP
+        $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
+        $mail->SMTPAuth = true;                               // Enable SMTP authentication
+        $mail->Username = 'smartdocumentrequest@gmail.com';             // SMTP username
+        $mail->Password = '@smartdocumentrequest1';               // SMTP password
+        $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+        $mail->Port = 587;                                    // TCP port to connect to
+
+        $mail->setFrom('smartdocumentrequest@gmail.com', 'SmartDocument Request');
+        $mail->addAddress($studentEmail);                      // Add a recipient
+
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = 'Document Request Status Update';
+        $mail->Body    = "Your document request status has been updated to: {$statusUpdate}.";
+
+        if(!$mail->send()) {
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        } else {
+            echo 'Message has been sent';
+        }
+    }
 }

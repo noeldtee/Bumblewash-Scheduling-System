@@ -23,9 +23,10 @@
         <div class="mb-2">
             <label for="">Role</label>
             <select name="admin_role" class="form-control">
-                <option value="">Select a Role</option>
-                <option <?= get_select('admin_role', 'Admin') ?> value="Admin">Admin</option>
-                <option <?= get_select('admin_role', 'Staff') ?> value="Staff">Staff</option>
+                <option selected disabled="">Select a Role</option>
+                <option <?= get_select('admin_role', 'Registrar') ?> value="Registrar">Registrar</option>
+                <option <?= get_select('admin_role', 'Cashier') ?> value="Cashier">Cashier</option>
+                <option <?= get_select('admin_role', 'Super Admin') ?> value="Super Admin">Super Admin</option>
             </select>
         </div>
 

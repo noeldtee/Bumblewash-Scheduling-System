@@ -6,35 +6,29 @@ class Book extends Model
     {
         $this->errors = [];
 
-        // Debugging: Log the input data
-        error_log("Validating data: " . print_r($data, true));
-
-        // Check if `book_document` is an array
+        // Check if the document has already been requested by this student with a pending request
         if (isset($data['book_document']) && is_array($data['book_document'])) {
             foreach ($data['book_document'] as $index => $document) {
-                if (!$this->isServiceAvailable($document)) {
-                    $this->errors['availability'][$index] = "The document '$document' is not available";
+                if ($this->isDocumentRequested($data['student_id'], $document)) {
+                    $this->errors['availability'][$index] = "You have already requested this document and it is pending completion.";
                 }
             }
         } else {
             $this->errors['book_document'] = 'No documents selected or invalid format';
         }
 
-        // Debugging: Log the errors
-        error_log("Validation errors: " . print_r($this->errors, true));
-
-        // Return validation result
         return count($this->errors) === 0;
     }
 
-    private function isServiceAvailable($document)
+    private function isDocumentRequested($studentId, $document)
     {
         $db = new Database();
         $connection = $db->connect();
 
-        // Check availability of the document
-        $query = "SELECT COUNT(*) AS count FROM services WHERE document = :document AND status = 'Available'";
+        // Check if a record exists for this student with the document and status not completed
+        $query = "SELECT COUNT(*) AS count FROM books WHERE student_id = :student_id AND book_document = :document AND book_status != 'completed'";
         $stmt = $connection->prepare($query);
+        $stmt->bindParam(':student_id', $studentId);
         $stmt->bindParam(':document', $document);
         $stmt->execute();
 
@@ -49,17 +43,28 @@ class Book extends Model
         $query = "INSERT INTO books (" . implode(',', $keys) . ") VALUES (:" . implode(',:', $keys) . ")";
         $db = new Database();
         $db->query($query, $data);
+
+        // Send notification to admin
+        $this->sendAdminNotification($data['student_id']);
+    }
+
+    private function sendAdminNotification($student_id)
+    {
+        $adminEmail = "admin@example.com";
+        $subject = "New Document Request";
+        $message = "A new document request has been made by student ID: $student_id.";
+        mail($adminEmail, $subject, $message);
     }
 
     public function findWhere($whereClause, $params = [])
     {
-        $db = new Database(); // Create a new instance of the Database class
-        $connection = $db->connect(); // Get the database connection
-    
+        $db = new Database();
+        $connection = $db->connect();
+
         $query = "SELECT * FROM books WHERE $whereClause ORDER BY created_at DESC";
-        $stmt = $connection->prepare($query); // Use the connection to prepare the query
+        $stmt = $connection->prepare($query);
         $stmt->execute($params);
-    
+
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
@@ -70,12 +75,12 @@ class Book extends Model
         $db->query($query, ['status' => $newStatus, 'id' => $id]);
     }
 
-public function find($id)
-{
-    $query = "SELECT * FROM books WHERE id = :id LIMIT 1";
-    $db = new Database();
-    $result = $db->query($query, ['id' => $id]);
-    return $result ? $result[0] : null; // Return the first result or null if none
+    public function find($id)
+    {
+        $query = "SELECT * FROM books WHERE id = :id LIMIT 1";
+        $db = new Database();
+        $result = $db->query($query, ['id' => $id]);
+        return $result ? $result[0] : null;
+    }
+    
 }
-}
-

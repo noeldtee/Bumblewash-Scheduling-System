@@ -7,19 +7,19 @@
 
     <div class="mb-2">
       <label for="">First Name</label>
-      <input name="firstname" disabled value="<?= $user->firstname ?>" type="text" class="form-control">
+      <input name="firstname" disabled value="<?= $user->student_firstname ?>" type="text" class="form-control">
     </div>
     <div class="mb-2">
       <label for="">Last Name</label>
-      <input name="lastname" disabled value="<?= $user->lastname ?>" type="text" class="form-control">
+      <input name="lastname" disabled value="<?= $user->student_lastname ?>" type="text" class="form-control">
     </div>
     <div class="mb-2">
       <label for="">Email</label>
-      <input name="email" disabled value="<?= $user->email ?>" type="email" class="form-control">
+      <input name="email" disabled value="<?= $user->student_email ?>" type="email" class="form-control">
     </div>
     <div class="mb-2">
       <label for="">Password</label>
-      <input name="password" disabled value="<?= $user->password ?>" type="password" class="form-control">
+      <input name="password" disabled value="<?= $user->student_password ?>" type="password" class="form-control">
     </div>
     <input type="hidden" name="id" value="<?= $user->id ?>">
     <button type="submit" class="btn btn-danger">Delete</button>

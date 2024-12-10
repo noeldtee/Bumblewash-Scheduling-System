@@ -88,17 +88,6 @@
               <td><?= htmlspecialchars(date('F d, Y', strtotime($item->created_at))); ?></td>
               <td><?= htmlspecialchars(ucfirst($item->book_status)); ?></td>
               <td>
-                <?php if ($item->book_status !== 'completed'): ?>
-                  <button
-                    class="btn btn-success btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#actionModal"
-                    data-id="<?= $item->id ?>"
-                    data-status="<?= $item->book_status ?>">
-                    Take Action
-                  </button>
-                <?php endif; ?>
-
                 <button 
         type="button" 
         class="btn btn-primary btn-sm" 
@@ -128,7 +117,7 @@
                 <button
                   class="btn btn-danger btn-sm delete-button"
                   data-id="<?= $item->id ?>">
-                  Reject
+                  Delete
                 </button>
               </td>
 
@@ -237,28 +226,6 @@
 </div>
 
 
-      <!-- Action Modal -->
-      <div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <form method="POST" action="<?= ROOT ?>/admins/updateStatus">
-              <div class="modal-header">
-                <h5 class="modal-title" id="actionModalLabel">Update Status</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <p id="modalMessage"></p>
-                <input type="hidden" name="id" id="modalRequestId">
-                <input type="hidden" name="action" id="modalAction">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Confirm</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
 
     </div>
     <script>
@@ -272,42 +239,6 @@
         // Submit the form to refresh the table with no search filter
         searchForm.submit();
       }
-    </script>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const actionModal = document.getElementById('actionModal');
-        actionModal.addEventListener('show.bs.modal', function(event) {
-          const button = event.relatedTarget; // Button that triggered the modal
-          const requestId = button.getAttribute('data-id');
-          const currentStatus = button.getAttribute('data-status');
-
-          const modalMessage = actionModal.querySelector('#modalMessage');
-          const modalRequestId = actionModal.querySelector('#modalRequestId');
-          const modalAction = actionModal.querySelector('#modalAction');
-
-          modalRequestId.value = requestId;
-
-          switch (currentStatus) {
-            case 'pending':
-              modalMessage.textContent = 'Do you want to approve this request?';
-              modalAction.value = 'approve';
-              break;
-            case 'in process':
-              modalMessage.textContent = 'Do you want to mark this request as ready to pick up?';
-              modalAction.value = 'to pickup';
-              break;
-            case 'to pickup':
-              modalMessage.textContent = 'Do you want to mark this request as completed?';
-              modalAction.value = 'completed';
-              break;
-            default:
-              modalMessage.textContent = 'Invalid action.';
-              modalAction.value = '';
-              break;
-          }
-        });
-      });
     </script>
 
     <script>
