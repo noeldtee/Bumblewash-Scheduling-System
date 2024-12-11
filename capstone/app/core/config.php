@@ -1,9 +1,9 @@
 <?php
 
-define('APP_NAME', 'Smart Document Request System');
+define('APP_NAME', 'BPC Document Request System');
 
-define('ROOT', 'http://localhost/capstone/bumble/public');
-define('PATH', 'C:/xampp/htdocs/capstone/bumble/app/views/');
+define('ROOT', 'http://localhost/capstone/capstone/public');
+define('PATH', 'C:/xampp/htdocs/capstone/capstone/app/views/');
 
 
 define('DB_HOST', 'localhost');
