@@ -1,0 +1,39 @@
+main .page-content{
+    margin: 1.2rem 1rem;
+    border: 1px solid black;
+    border-radius: 40px;
+    overflow: auto;
+    display: block;
+    justify-content: center;
+}
+
+main .page-content .form-container{
+    padding: 1rem 2rem;
+}
+
+main .page-content #docs .form-select{
+    margin-right: 10px;
+}
+
+.form-container .submit #button {
+    margin-left: 22.5rem;
+    width: 40%;
+    padding: 10px;
+    margin-top: .8rem;
+    background-color: #c1efa4;
+    color: #040404;
+    font-size: 16px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container #submit:hover {
+    background-color: #006a32;
+}
+.form-container .submit #button:hover {
+    background-color: #006a32;
+}
+
+

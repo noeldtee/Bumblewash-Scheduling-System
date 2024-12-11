@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto:wght@700&display=swap');
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+body{
+    width: 100%;
+    height: 100vh;
+    background-image: url(../images/bpc.png);
+    background-size: cover;
+}
+.side-nav{
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 30px 15px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+}
+.user{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.user h1{
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.user i{
+    font-size: 100px;
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.side-nav ul a{
+    display:block;
+    height: 100%;
+    width: 100%;
+    line-height: 65px;
+    font-size: 20px;
+    color: rgb(27, 25, 25);
+    box-sizing: border-box;
+    border-top:1px solid rgba(red, green, blue, alpha);
+    border-bottom: 1px solid black;
+}
+ul li:hover a{
+    padding-left: 50px;
+}
+.side-nav ul a i{
+    margin-right: 16px;
+}
+.userlist{
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    width: 76%;
+    height: auto;
+    border-radius: 20px;
+    margin-left: 20%;
+    margin-top: 20px;
+    padding-right: 20px;
+    padding: 4px 10px;
+    color: black;
+    display: inline-block;
+}
+table{
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    height: auto;
+}
+th, td{
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+    color: black;
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: center;
+}
+
+th{
+    font-weight: bold;
+}
+
+.ss{
+    padding-bottom: 20px;
+    text-align: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.ss #x{
+    width: 50%;
+    height: 25px;
+    border: 1px solid #a0a0a0;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    padding: 8px;
+    color: #080808;
+}
