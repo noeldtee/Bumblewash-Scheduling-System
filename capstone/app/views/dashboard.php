@@ -17,7 +17,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="<?= ROOT ?>/books/request">
+                    <a href="<?= ROOT ?>/books/activity$activity">
                         <span class="las la-file-alt"></span>
                         <small>Request a Document</small>
                     </a>
@@ -123,7 +123,7 @@
                 <div class="card2">
                     <small>Click Below to Get Started on Your Document Request!</small>
                     <div class="card-head2">
-                        <a href="<?= ROOT ?>/books/request">Request a Document</a>
+                        <a href="<?= ROOT ?>/books/activity$activity">Request a Document</a>
                     </div>
                 </div>
             </div>
@@ -153,7 +153,30 @@
                                         <td><?= htmlspecialchars(date('Y-m-d', strtotime($activity->created_at))); ?></td>
                                         <td><?= htmlspecialchars(ucfirst($activity->book_status)); ?></td>
                                         <td>
-                                            <a href="<?= ROOT ?>/documents/view/<?= $activity->id; ?>">View</a>
+                                        <button
+                                            type="button"
+                                            class="btn btn-primary btn-sm"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal"
+                                            data-id="<?= $activity->id ?>"
+                                            data-created_at="<?= htmlspecialchars($activity->created_at) ?>"
+                                            data-book_fname="<?= htmlspecialchars($activity->book_fname) ?>"
+                                            data-book_lname="<?= htmlspecialchars($activity->book_lname) ?>"
+                                            data-book_email="<?= htmlspecialchars($activity->book_email) ?>"
+                                            data-book_number="<?= htmlspecialchars($activity->book_number) ?>"
+                                            data-student_birthdate="<?= htmlspecialchars($activity->student_birthdate) ?>"
+                                            data-student_id="<?= htmlspecialchars($activity->student_id) ?>"
+                                            data-year_level="<?= htmlspecialchars($activity->year_level) ?>"
+                                            data-course="<?= htmlspecialchars($activity->course) ?>"
+                                            data-section="<?= htmlspecialchars($activity->section) ?>"
+                                            data-book_document="<?= htmlspecialchars($activity->book_document) ?>"
+                                            data-book_status="<?= htmlspecialchars($activity->book_status) ?>"
+                                            data-price="<?= htmlspecialchars($activity->price) ?>"
+                                            data-payment_status="<?= htmlspecialchars($activity->payment_status) ?>"
+                                            data-purpose="<?= htmlspecialchars($activity->purpose) ?>"
+                                            data-pickup_date="<?= htmlspecialchars($activity->pickup_date) ?>">
+                                            View Information
+                                        </button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -169,6 +192,98 @@
         </div>
     </main>
 </div>
+    <!-- Information Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">View Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">First Name</label>
+                            <input name="book_fname" value="" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Last Name</label>
+                            <input name="book_lname" value="" type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input name="book_email" value="" type="email" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Contact Number</label>
+                            <input name="book_number" value="" type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Student ID</label>
+                            <input name="student_id" value="" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Year Level</label>
+                            <input name="year_level" value="" type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Course</label>
+                            <input name="course" value="" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Section</label>
+                            <input name="section" value="" type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Created At</label>
+                            <input name="created_at" value="" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Birthdate</label>
+                            <input name="student_birthdate" value="" type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Document</label>
+                            <input name="book_document" value="" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Status</label>
+                            <input name="book_status" value="" type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Price</label>
+                            <input name="price" value="" type="text" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Payment Status</label>
+                            <input name="payment_status" value="" type="text" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <label class="form-label">Pickup Date</label>
+                        <input name="pickup_date" value="" type="text" class="form-control" readonly>
+                    </div>
+                    <label class="form-label">Purpose</label>
+                    <input name="purpose" value="" type="textarea" class="form-control" readonly>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script>
       function clearSearchAndSubmit() {
@@ -193,5 +308,25 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 </script>
+
+<script>
+        const exampleModal = document.getElementById('exampleModal');
+        exampleModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget; // Button that triggered the modal
+            const fields = [
+                "book_fname", "book_lname", "book_email", "book_number",
+                "student_id", "year_level", "course", "section", "created_at",
+                "student_birthdate", "book_document", "book_status", "price",
+                "payment_status", "purpose", "pickup_date"
+            ];
+
+            fields.forEach(field => {
+                const input = exampleModal.querySelector(`input[name="${field}"]`);
+                if (input) {
+                    input.value = button.getAttribute(`data-${field}`) || "N/A"; // Default to "N/A" if value is missing
+                }
+            });
+        });
+    </script>
 
 <?php include PATH . "/partials/footer.php" ?>

@@ -128,7 +128,7 @@
                 <button
                   class="btn btn-danger btn-sm delete-button"
                   data-id="<?= $item->id ?>">
-                  Reject
+                  Delete
                 </button>
               </td>
 
@@ -250,6 +250,10 @@
                 <p id="modalMessage"></p>
                 <input type="hidden" name="id" id="modalRequestId">
                 <input type="hidden" name="action" id="modalAction">
+                <div class="form-group" id="pickupDateField" style="display: none;">
+  <label for="pickupDate">Pickup Date</label>
+  <input type="date" name="pickup_date" id="pickupDate" class="form-control" required>
+</div>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -275,41 +279,53 @@
     </script>
 
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const actionModal = document.getElementById('actionModal');
-        actionModal.addEventListener('show.bs.modal', function(event) {
-          const button = event.relatedTarget; // Button that triggered the modal
-          const requestId = button.getAttribute('data-id');
-          const currentStatus = button.getAttribute('data-status');
+      document.addEventListener('DOMContentLoaded', function () {
+  const actionModal = document.getElementById('actionModal');
+  actionModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget; // Button that triggered the modal
+    const requestId = button.getAttribute('data-id');
+    const currentStatus = button.getAttribute('data-status');
 
-          const modalMessage = actionModal.querySelector('#modalMessage');
-          const modalRequestId = actionModal.querySelector('#modalRequestId');
-          const modalAction = actionModal.querySelector('#modalAction');
+    const modalMessage = actionModal.querySelector('#modalMessage');
+    const modalRequestId = actionModal.querySelector('#modalRequestId');
+    const modalAction = actionModal.querySelector('#modalAction');
+    const pickupDateField = actionModal.querySelector('#pickupDateField');
 
-          modalRequestId.value = requestId;
+    modalRequestId.value = requestId;
 
-          switch (currentStatus) {
-            case 'pending':
-              modalMessage.textContent = 'Do you want to approve this request?';
-              modalAction.value = 'approve';
-              break;
-            case 'in process':
-              modalMessage.textContent = 'Do you want to mark this request as ready to pick up?';
-              modalAction.value = 'to pickup';
-              break;
-            case 'to pickup':
-              modalMessage.textContent = 'Do you want to mark this request as completed?';
-              modalAction.value = 'completed';
-              break;
-            default:
-              modalMessage.textContent = 'Invalid action.';
-              modalAction.value = '';
-              break;
-          }
-        });
-      });
+    switch (currentStatus) {
+      case 'pending':
+        modalMessage.textContent = 'Do you want to approve this request?';
+        modalAction.value = 'approve';
+        pickupDateField.style.display = 'block'; // Show the pickup date field
+        break;
+      case 'in process':
+        modalMessage.textContent = 'Do you want to mark this request as ready to pick up?';
+        modalAction.value = 'to pickup';
+        pickupDateField.style.display = 'none'; // Hide the pickup date field
+        break;
+      case 'to pickup':
+        modalMessage.textContent = 'Do you want to mark this request as completed?';
+        modalAction.value = 'completed';
+        pickupDateField.style.display = 'none'; // Hide the pickup date field
+        break;
+      default:
+        modalMessage.textContent = 'Invalid action.';
+        modalAction.value = '';
+        pickupDateField.style.display = 'none'; // Hide the pickup date field
+        break;
+    }
+  });
+});
+
     </script>
-
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const pickupDateInput = document.getElementById('pickupDate');
+    const today = new Date().toISOString().split('T')[0];
+    pickupDateInput.setAttribute('min', today); // Set the min attribute to today's date
+  });
+</script>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         const deleteButtons = document.querySelectorAll('.delete-button');

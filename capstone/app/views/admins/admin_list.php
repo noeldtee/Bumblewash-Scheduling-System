@@ -43,6 +43,9 @@
       <small>Here you can manage admin accounts!</small>
     </div>
     <div class="page-content">
+    <div class="float-end" style="margin-bottom: 1rem; width: 10rem;">
+          <a href="<?= ROOT ?>/admins/admin_create" class="btn btn-primary" style="margin-left: 2rem;">Add New</a>
+        </div>
 
       <div class="mt-1 d-flex justify-content-between align-items-center">
         <h3>Admin List</h3>

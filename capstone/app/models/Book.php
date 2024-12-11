@@ -75,6 +75,17 @@ class Book extends Model
         $db->query($query, ['status' => $newStatus, 'id' => $id]);
     }
 
+    public function updateStatusWithPickupDate($id, $newStatus, $pickupDate)
+{
+    $query = "UPDATE books SET book_status = :status, pickup_date = :pickup_date WHERE id = :id";
+    $db = new Database();
+    $db->query($query, [
+        'status' => $newStatus,
+        'pickup_date' => $pickupDate,
+        'id' => $id
+    ]);
+}
+
     public function find($id)
     {
         $query = "SELECT * FROM books WHERE id = :id LIMIT 1";

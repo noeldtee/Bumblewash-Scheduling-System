@@ -488,40 +488,52 @@ public function request_logs()
       if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $id = $_POST['id'] ?? null;
           $action = $_POST['action'] ?? null;
-
+          $pickupDate = $_POST['pickup_date'] ?? null;
+  
           if ($id && $action) {
               $bookModel = new Book();
-              $book = $bookModel->find($id); // This now works correctly.
-
+              $book = $bookModel->find($id);
+  
               if ($book) {
                   $newStatus = '';
                   switch ($action) {
                       case 'approve':
                           $newStatus = 'in process';
+  
+                          // Ensure pickup date is provided
+                          if (!$pickupDate) {
+                              redirect('admins/booking_list', ['error' => 'Pickup date is required for approval.']);
+                          }
+  
+                          // Update status and set pickup date
+                          $bookModel->updateStatusWithPickupDate($id, $newStatus, $pickupDate);
                           break;
+  
                       case 'to pickup':
                           $newStatus = 'to pickup';
+                          $bookModel->updateStatus($id, $newStatus);
                           break;
+  
                       case 'completed':
                           $newStatus = 'completed';
+                          $bookModel->updateStatus($id, $newStatus);
                           break;
+  
                       default:
                           redirect('admins/booking_list', ['error' => 'Invalid status action.']);
                   }
-
-                  // Update the status
-                  $bookModel->updateStatus($id, $newStatus);
-
+  
                   // Send email notification
                   $this->sendEmailNotification($book->book_email, $newStatus);
-
+  
                   redirect('admins/booking_list', ['success' => 'Status updated successfully.']);
               }
           }
-
+  
           redirect('admins/booking_list', ['error' => 'Failed to update status.']);
       }
   }
+  
 
   public function deleteRequest($id)
   {
