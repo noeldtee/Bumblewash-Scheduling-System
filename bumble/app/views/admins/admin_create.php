@@ -26,7 +26,7 @@
                 <option selected disabled="">Select a Role</option>
                 <option <?= get_select('admin_role', 'Registrar') ?> value="Registrar">Registrar</option>
                 <option <?= get_select('admin_role', 'Cashier') ?> value="Cashier">Cashier</option>
-                <option <?= get_select('admin_role', 'Super Admin') ?> value="Super Admin">Super Admin</option>
+                <option <?= get_select('admin_role', 'Admin') ?> value="Admin">Admin</option>
             </select>
         </div>
 

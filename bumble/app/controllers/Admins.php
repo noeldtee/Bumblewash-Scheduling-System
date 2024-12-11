@@ -1,6 +1,8 @@
 <?php
+//Import PHPMailer
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+
 
 class Admins extends Controller
 {
@@ -548,7 +550,7 @@ public function request_logs()
         $mail->Host = 'smtp.gmail.com';                       // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
         $mail->Username = 'smartdocumentrequest@gmail.com';             // SMTP username
-        $mail->Password = '@smartdocumentrequest1';               // SMTP password
+        $mail->Password = '@smartdocument1';               // SMTP password
         $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
         $mail->Port = 587;                                    // TCP port to connect to
 
@@ -566,4 +568,19 @@ public function request_logs()
             echo 'Message has been sent';
         }
     }
+
+  public function paymentdashboard()
+  {
+    if (!Admin_Auth::logged_in()) {
+      redirect('admins/login');
+    }
+
+      $this->view('admins/paymentdashboard', [
+      ]);
+  }
+
+  public function unauthorized()
+{
+    $this->view('admins/unauthorized');
+}
 }

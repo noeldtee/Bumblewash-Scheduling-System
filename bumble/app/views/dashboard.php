@@ -123,7 +123,7 @@
                 <div class="card2">
                     <small>Click Below to Get Started on Your Document Request!</small>
                     <div class="card-head2">
-                        <a href="">Request a Document</a>
+                        <a href="<?= ROOT ?>/books/request">Request a Document</a>
                     </div>
                 </div>
             </div>

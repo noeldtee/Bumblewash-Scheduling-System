@@ -159,7 +159,7 @@
                 </table>
                 <div class="card2">
                     <div class="card-head2">
-                        <a href="">Request Another Document</a>
+                        <a href="<?= ROOT ?>/books/request">Request Another Document</a>
                     </div>
                 </div>
             </div>

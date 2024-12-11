@@ -107,11 +107,11 @@
                             <h2>Personal Information</h2>
                         </div>
                         <div class="card-progress">
-                            <small>Name: Noel Christopher Tee</small>
-                            <small>Email: noeldtee@gmail.com</small>
-                            <small>Contact Number: 09876532892</small>
+                            <small>Name: <?= $_SESSION['USER']->student_lastname ?>, <?= $_SESSION['USER']->student_firstname ?></small>
+                            <small>Email: <?= $_SESSION['USER']->student_email ?></small>
+                            <small>Contact Number: <?= $_SESSION['USER']->student_number ?></small>
                           <div></div>
-                            <a href="">Edit Details</a>
+                            <a href="settings/useredit.php">Edit Details</a>
                         </div>
                     </div>
                     <div class="card">
@@ -135,7 +135,7 @@
                             <small>Change Password?</small>
                            
                          
-                            <a href="">View Details</a>
+                            <a href="settings/passwordedit">Edit Password</a>
                         </div>
                     </div>
                     <div class="card">

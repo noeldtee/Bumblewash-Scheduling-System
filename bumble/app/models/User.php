@@ -96,4 +96,30 @@ class User extends Model
     {
         return $this->first(['student_number' => $studentNumber]);
     }
+
+    public function verifyPassword($userId, $currentPassword)
+    {
+        $db = new Database();
+        $query = "SELECT student_password FROM users WHERE student_id = :id";
+        $result = $db->query($query, ['id' => $userId]);
+    
+        if ($result && password_verify($currentPassword, $result[0]->student_password)) {
+            return true;
+        }
+        return false;
+    }
+    
+
+    public function updatePassword($userId, $newPassword)
+    {
+        $db = new Database();
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+    
+        $query = "UPDATE users SET student_password = :password WHERE student_id = :id";
+        $db->query($query, [
+            'password' => $hashedPassword,
+            'id' => $userId,
+        ]);
+    }
+    
 }
