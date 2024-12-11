@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2024 at 10:08 AM
+-- Generation Time: Dec 11, 2024 at 07:28 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,7 +47,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `admin_name`, `admin_fn`, `admin_ln`, `admin_email`, `admin_number`, `admin_password`, `admin_image`, `admin_role`, `admin_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'Noel Christopher', 'Tee', 'noeldtee27@gmail.com', '09972181003', '$2y$10$cvMnmdgDiGf73LpsA9i16ebqfUdZo6YSeQjj2IlyMFMWmuZzQ6POO', NULL, 'Admin', 'mR1vVFmo4xFbzqmWfOI8GGdz40PA9lFZzF85yamF9zRix2cGKkrHP8foRU5q', '2024-12-09 17:42:51', '2024-12-09 17:42:51');
+(3, 'Admin', 'Super', 'Admin', 'superadmin@gmail.com', '09991234567', '$2y$10$XwpuR5nlmv4lMz3E8C5OkOt3SOE21X74FNhkBEK/Kz.50KTBNrZrm', NULL, 'Admin', 'PXVoO1hDVzbeg8uWWQzaueuedHUSfF5KpgN8qTxkemx8XFR4tsHfaNPRW9iv', '2024-12-10 15:13:33', '2024-12-11 02:53:42');
 
 -- --------------------------------------------------------
 
@@ -65,25 +65,19 @@ CREATE TABLE `books` (
   `student_birthdate` date DEFAULT NULL,
   `course` varchar(99) NOT NULL,
   `section` varchar(99) NOT NULL,
-  `year_level` int(11) NOT NULL,
+  `year_level` varchar(11) NOT NULL,
   `purpose` varchar(255) NOT NULL,
   `book_document` varchar(99) NOT NULL,
   `price` decimal(50,0) NOT NULL,
-  `pickup_date` varchar(999) NOT NULL DEFAULT 'For Approval',
+  `pickup_date` varchar(999) NOT NULL DEFAULT 'TBA',
   `document_status` varchar(99) DEFAULT NULL,
-  `book_status` enum('pending','in_process','to_pickup','completed','rejected') DEFAULT 'pending',
+  `book_status` enum('pending','in process','to pickup','completed','rejected') DEFAULT NULL,
   `payment_status` varchar(99) NOT NULL DEFAULT 'Paid',
   `book_token` varchar(60) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `notification_sent` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `books`
---
-
-INSERT INTO `books` (`id`, `student_id`, `book_fname`, `book_lname`, `book_email`, `book_number`, `student_birthdate`, `course`, `section`, `year_level`, `purpose`, `book_document`, `price`, `pickup_date`, `document_status`, `book_status`, `payment_status`, `book_token`, `created_at`, `updated_at`) VALUES
-(1, 'MA21592102', 'Noel Christopher', 'Tee', 'noeldtee@gmail.com', '09972181003', '2001-12-07', 'BSIS', 'G', 1, 'test', 'Certificate of Registration,ToR', 100, 'For Approval', NULL, 'pending', 'Paid', NULL, '2024-12-10 07:43:34', '2024-12-10 07:43:34');
 
 -- --------------------------------------------------------
 
@@ -120,8 +114,9 @@ CREATE TABLE `services` (
 --
 
 INSERT INTO `services` (`id`, `document`, `price`, `status`, `service_token`, `created_at`, `updated_at`) VALUES
-(3, 'ToR', 100, 'Available', NULL, '2024-12-09 14:52:13', '2024-12-09 14:52:13'),
-(4, 'Certificate of Registration', 0, 'Available', 'FSXKasJVpJlOInhxLYk3r1uaI7HvFcDru8QADw8lvhpVfKPzVx4ssqirVi7y', '2024-12-09 18:02:10', '2024-12-09 18:02:10');
+(5, 'Certificate of Registration', 0, 'Available', 'dQ8MJJ4GFo1j5put6F8SLd3oH7sdyZ3b0cNNqKBtYb8WMdzvfXhRIwHqFZEq', '2024-12-10 12:57:55', '2024-12-10 12:57:55'),
+(6, 'Certificate of Grades', 50, 'Available', 'VkGPU9AW4Na4RYBofz5Jdj2H0N7IDsx8RvQKa7kvkVgZj2y5cIqQWBDX0dRI', '2024-12-10 12:58:10', '2024-12-10 12:58:10'),
+(7, 'Transcript of Records', 50, 'Available', '2DiQqhtwR0kFwZS19hXoRz3Wefw0uhJ64icBGZyn8VBNIVoin1MOy6id4TDG', '2024-12-10 12:58:25', '2024-12-10 12:58:25');
 
 -- --------------------------------------------------------
 
@@ -131,19 +126,19 @@ INSERT INTO `services` (`id`, `document`, `price`, `status`, `service_token`, `c
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `student_id` varchar(25) NOT NULL,
+  `student_id` varchar(99) NOT NULL,
+  `student_email` varchar(99) NOT NULL,
+  `student_number` varchar(99) NOT NULL,
   `student_firstname` varchar(60) NOT NULL,
   `student_lastname` varchar(60) NOT NULL,
-  `student_email` varchar(99) NOT NULL,
-  `student_number` varchar(11) NOT NULL,
   `student_password` varchar(60) NOT NULL,
   `student_password_confirm` varchar(99) NOT NULL,
   `student_profile` varchar(60) DEFAULT NULL,
   `student_gender` varchar(99) NOT NULL,
   `student_birthdate` date NOT NULL,
-  `course` varchar(11) NOT NULL,
+  `course` varchar(99) NOT NULL,
   `section` varchar(25) NOT NULL,
-  `year_level` int(11) NOT NULL,
+  `year_level` varchar(99) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `terms` varchar(99) NOT NULL,
@@ -151,13 +146,6 @@ CREATE TABLE `users` (
   `token` varchar(60) DEFAULT NULL,
   `message` varchar(999) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `student_id`, `student_firstname`, `student_lastname`, `student_email`, `student_number`, `student_password`, `student_password_confirm`, `student_profile`, `student_gender`, `student_birthdate`, `course`, `section`, `year_level`, `created_at`, `updated_at`, `terms`, `role`, `token`, `message`) VALUES
-(1, 'MA21592102', 'Noel Christopher', 'Tee', 'noeldtee@gmail.com', '09972181003', '$2y$10$W8X3ltq6y2DeFJWh5sRzkuQuDR7bFCdCuBUu5yGoNAGAo0QjrPo46', '123456', 'http://localhost/capstone/bumble/public/assets/images/defaul', 'Male', '2001-12-07', 'BSIS', 'G', 1, '2024-12-10 07:40:02', '2024-12-10 07:40:02', 'on', NULL, 'Rs9NOoOtbsWjR7qhDf7Wsn8FBX9tFVWk6MqVpkTr29472IateXtuZnZ57Azk', '');
 
 --
 -- Indexes for dumped tables
@@ -192,8 +180,7 @@ ALTER TABLE `services`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `student_id` (`student_id`),
-  ADD KEY `student_email` (`student_email`);
+  ADD KEY `student_id` (`student_id`,`student_email`,`student_number`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -203,13 +190,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` int(99) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(99) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `messages`
@@ -221,13 +208,13 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

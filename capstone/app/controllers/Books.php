@@ -47,7 +47,8 @@ class Books extends Controller
                 // Form validation failed
                 $errors = $book->errors;
                 $showErrorModal = true;
-                $errorMessage = 'There are errors in your form submission. Please correct them.';
+                $errorMessage = 'You already requested this document. Wait for it to be completed.
+                ';
             }
         }
 
