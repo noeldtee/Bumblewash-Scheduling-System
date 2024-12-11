@@ -61,28 +61,6 @@
                     <span class="las la-bars"></span>
                 </label>
                 <div class="header-menu">
-                <form class="d-flex position-relative" role="search" method="GET" action="<?= ROOT ?>/setting" id="searchForm">
-          <div class="position-relative">
-            <input
-              class="form-control me-2" style="width: 30rem;"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-              name="search"
-              value="<?= htmlspecialchars($_GET['search'] ?? '') ?>"
-              id="searchInput">
-            <!-- Clear Button -->
-            <button
-              type="button"
-              class="btn position-absolute top-50 translate-middle-y end-0"
-              aria-label="Clear search"
-              onclick="clearSearchAndSubmit()"
-              style="background: none; border: none; font-size: 1.5rem; color: #6c757d; cursor: pointer; margin-right: .6rem; margin-top: 2px;">
-              &times;
-            </button>
-          </div>
-          <button class="btn btn-outline-dark ms-2" style="margin-right: 2rem;" type="submit">Search</button>
-        </form>
                     <div class="notify-icon">
                         <span class="las la-bell"></span>
                         <span class="notify">3</span>
