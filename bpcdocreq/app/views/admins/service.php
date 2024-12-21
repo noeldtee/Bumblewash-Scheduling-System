@@ -44,7 +44,7 @@
     </div>
     <div class="page-content">
         <div class="float-end" style="margin-bottom: 1rem; width: 10rem;">
-          <a href="<?= ROOT ?>/admins/create" class="btn btn-primary" style="margin-left: 2rem;">Add New</a>
+          <a href="<?= ROOT ?>/admins/service_add" class="btn btn-primary" style="margin-left: 2rem;">Add New</a>
         </div>
 
       <table class="table table-striped mt-3">
