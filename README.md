@@ -1,2 +1,2 @@
-# Capstone
- Smart Document Request and Scheduling Hub
+# Bumble Wash System
+ Smart Scheduling System for Bumble Carwash
